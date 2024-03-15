@@ -217,7 +217,7 @@ To receive stock at the warehouse, a Receiving Order (inbound) needs to be creat
 }
 ```
 
-### Response:
+#### Response:
 200 OK
 
 ```json
