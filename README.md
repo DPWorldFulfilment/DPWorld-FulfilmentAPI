@@ -1,4 +1,3 @@
-```markdown
 # SFS (Standard Fulfilment Service) Documentation
 
 ## Introduction
