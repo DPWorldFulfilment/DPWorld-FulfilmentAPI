@@ -242,9 +242,9 @@ To receive stock at the warehouse, a Receiving Order (inbound) needs to be creat
 
 ### RO Detail API
 
-- **Description**: - This API is used to fetch Inbound details  
-- **Verb**: - GET      
-- **URL**: - /api/v1/ims/ro/receving-orders/{orderId} 
+- **Description**: This API is used to fetch Inbound details  
+- **Verb**: GET      
+- **URL**: /api/v1/ims/ro/receving-orders/{orderId} 
 #### Request Header: 
 | Field       | Description        | Data Type | Mandatory | Example     | 
 |-------------|--------------------|-----------|-----------|-------------| 
@@ -466,6 +466,472 @@ curl --location 'localhost:8080/api/ims/v1/ro/receiving-order/RO-11000001314' \
   "status": "EXPECTATION_FAILED",
   "message": "Required request header 'tenantCode' for method parameter type String is not present",
   "requestId": "65e95af30bb3238172b7b7491a738007",
+  "errors": [
+    "INVENTORY_EVENT_EXCEPTION"
+  ]
+}
+```
+
+### RO Listing API
+
+- **Description**: This API is used to fetch all the inbounds based on filters
+- **Verb**:  POST
+- **URL**: /api/v1/ims/ro/receving-orders
+
+#### Request Param
+|Field|Desc|Datatype|Mandatory|Example|
+| :- | :- | :- | :- | :- |
+|limit|Number of elemnts in one page|Integer|No|10|
+|page|Page Number|Integer|No|2|
+|sortOn|It will give you sorted response based on field you applied sorting|String|No|Value must be from the fields that are there in response only|
+|direction|ASC, DESC|String|No|ASC, DSC|
+
+#### Request
+```json
+{
+
+  "sellerId": "4cf19e27-3fe0-5",
+  "subOrderType": [
+       "RVP",
+       "DEFAULT"
+  ],
+  "orderStatuses": [],
+  "warehouseIds": [],
+  "startDate": "2023-10-12",
+  "endDate": "2024-11-15",
+  "searchParam": null
+}
+```
+
+|Field|Desc|Datatype|Mandatory|Example|
+| :- | :- | :- | :- | :- |
+|sellerId|SellerId of user to fetch its inbounds|String|Yes|"sellerId”|
+|subOrderType|It filters inbounds based on subOrderType|List<String>|Yes|[“RVP”,” RTO”,”DEFAULT”]|
+|orderStatuses|It filters inbounds based on orderStatus|List<String>|No|[“PENDING”, CREATED”]|
+|warehouseIds|It filters inbounds based on warehouseId|List<String>|No|[“warehouseId”]|
+|startDate|It filters inbounds based on date|String |Yes|“2024-01-23"Format must be “YYYY-MM-DD"|
+|endDate|It filters inbounds based on date|String|Yes|“2024-02-15"Format must be “YYYY-MM-DD"|
+|searchParam|It filters inbounds based on search param |String |No|“RO-123”|
+
+```bash
+Curl:
+curl --location 'localhost:8080/api/ims/v1/ro/receiving-orders?limit=2&page=1&sortOn=createdOn&direction=DESC' \
+--header 'Content-Type: application/json' \
+--data '{
+    "sellerId": "4cf19e27-3fe0-5",
+    "subOrderType": ["RVP","DEFAULT"],
+    "orderStatuses":[],
+    "warehouseIds": [],
+    "startDate": "2023-10-12",
+    "endDate": "2024-11-15",
+    "searchParam": null
+}'
+```
+
+#### Response
+
+200
+```json
+{
+  "receivingOrdersResponses": [
+    {
+      "orderId": "RO-11000001742",
+      "poNbr": "999999001",
+      "subOrderType": "DEFAULT",
+      "orderStatus": "AWAITING_ARRIVAL",
+      "sellerId": "4cf19e27-3fe0-5",
+      "fulfillmentCenter": "Linbro - South Africa",
+      "createdOn": "2024-03-06T11:06:01.000+00:00",
+      "manifestLink": "https://stsfsakamaipreprod.blob.core.windows.net/static-content-preprod-sfs/pdf/MANIFEST/uploaded/RO-11000001742.pdf"
+    },
+    {
+      "orderId": "RO-11000001712",
+      "poNbr": "999999001",
+      "subOrderType": "DEFAULT",
+      "orderStatus": "AWAITING_ARRIVAL",
+      "sellerId": "4cf19e27-3fe0-5",
+      "fulfillmentCenter": "EUROPE",
+      "createdOn": "2024-02-26T07:53:06.000+00:00",
+      "manifestLink": "https://stsfsakamaipreprod.blob.core.windows.net/static-content-preprod-sfs/pdf/MANIFEST/uploaded/RO-11000001712.pdf"
+    }
+  ],
+  "totalElements": 271,
+  "status": true
+}
+```
+
+400 
+```json
+{
+  "timestamp": "2024-03-07T07:12:11.502452",
+  "errorReasonCode": "ERR-IMS-136",
+  "status": "BAD_REQUEST",
+  "message": "provide valid date format \"yyyy-MM-dd\"",
+  "requestId": "65e968cb415fe7f4000bf87c52d65ce7",
+  "errors": [
+    "BAD_REQUEST_EXCEPTION"
+  ]
+}
+```
+
+404 
+```json
+{
+  "timestamp": "2024-03-07T07:12:44.612571",
+  "errorReasonCode": null,
+  "status": "NOT_FOUND",
+  "message": "Resource not found",
+  "requestId": "65e968ec0d0e8e6dc7bbe88625089a31",
+  "errors": [
+    "No data Found for request"
+  ]
+}
+```
+
+417
+```json
+{
+  "timestamp": "2024-03-07T07:13:03.482849",
+  "errorReasonCode": null,
+  "status": "EXPECTATION_FAILED",
+  "message": "Content-Type is not supported",
+  "requestId": "65e968ffd9c36c06e30a6dc83cc9e053",
+  "errors": [
+    "INVENTORY_EVENT_EXCEPTION"
+  ]
+}
+```
+
+### Create Draft Inbound API
+
+- **Description**: This API is used to create draft inbounds which can then be used to create inbound and you can update the draft
+- **URL**: {DNS}/api/v1/ims/ro/draft
+- **Request Type**: POST 
+- **Request Header**: languageCode
+
+|Field|Desc|Datatype|Mandatory|Example|
+| :- | :- | :- | :- | :- |
+|languageCode|Language|Enum|Yes|En, Fr |
+
+#### Request
+```json
+{
+  "platformId": "Contractual Logistics:Imperial:WWHC",
+  "sellerId": "4cf19e27-3fe0-5",
+  "warehouseId": "IMS_DEFAULT",
+  "orderType": "DRAFT_RECEIVING_ORDER",
+  "draftPayload": "{\"consigneeOrderId\":\"\",\"fulfillmentType\":\"S2W\",\"shippingMethod\":\"DROP_AT_WAREHOUSE\",\"shippingOptions\":null,\"carrierMethod\":\"\",\"currency\":\"USD\",\"consignorDetails\":{\"consignorId\":\"ee00c1d4-9c25-5\",\"merchantTag\":null,\"pickUpInfo\":{\"customerAddressId\":null,\"contact\":{\"name\":{\"firstName\":\"ramanMechant 2\",\"lastName\":\"Warner\",\"middleName\":null,\"nickName\":null},\"phone\":\"R5wJgNioSTX2qFQlEyub0g\",\"email\":\"nike.merchant@maildrop.cc\"},\"address\":{\"unitNumber\":null,\"lineOne\":\"23423541\",\"lineTwo\":\"PEOPLES COLONY\",\"geographicLocation\":null,\"street\":\"RAJAN\",\"poBox\":null,\"city\":\"Zastron\",\"country\":\"South Africa\",\"zip\":\"9950\",\"region\":\"Free State\",\"addressType\":\"PICKUP\",\"suburb\":\"Nuwe Lokasie\",\"suburbId\":null,\"orderType\":null}}},\"warehouseInfo\":{\"warehouseId\":\"149091_ORACLE\",\"labelName\":null,\"name\":null,\"providerName\":null},\"parcelDetails\":{\"parcelConfigs\":[{\"unitOfMeasure\":\"container\",\"measurementValue\":\"40 feet\"}],\"attributeData\":[{\"attributeName\":\"multipleSkuPerBox\",\"attributeValue\":\"true\"},{\"attributeName\":\"oneSkuPerBox\",\"attributeValue\":\"false\"}]},\"lineDates\":{\"expectedShipDate\":\"2024-03-07\"},\"fulfillmentLines\":{\"totalLineQty\":10,\"orderLineDetails\":[{\"fulfillmentLineId\":1,\"refId\":null,\"itemDetails\":{\"inventoryId\":\"A126-F200229620C31629\",\"barcode\":\"TESTVENREY\",\"weight\":null,\"volume\":null,\"action\":null,\"quantity\":{\"orderQty\":10,\"unitOfMeasure\":\"EA\",\"measurementValue\":\"10\"},\"packingConfig\":{\"labeling\":false,\"bubbleWrapping\":false,\"bagging\":false,\"bubbleMail\":false},\"shnId\":null,\"issue\":null,\"sellerAction\":null}}]},\"boxInfo\":null,\"additionalAttributes\":[{\"attributeType\":\"ORDER_ATTRIBUTES\",\"attributeData\":[{\"attributeName\":\"priorityInbound\",\"attributeValue\":\"false\"}]}]}"
+}
+```
+
+|Field|Desc|Datatype|Mandatory|Example|
+| :- | :- | :- | :- | :- |
+|platformId|PlatformId, it is field validated from our end|String|Yes|"platformId”|
+|sellerId|SellerId of user creating draft inbound|String|Yes|“sellerId”|
+|warehouseId|WarehouseId for which inbound needs to be created|String|Yes|“warehouseId”|
+|orderType|DRAFT_RECEIVING_ORDER|String|Yes|“DRAFT_RECEIVING_ORDER”|
+|draftPayload|This field will have all the payload in string format that user has given|String |Yes|"draftPayload”|
+
+#### Response
+200
+```json
+{
+  "orderId": "DRAFT-RO-11000001744",
+  "sellerId": "4cf19e27-3fe0-5",
+  "createdOn": "2024-03-07T08:04:59.004+00:00",
+  "updatedAt": "2024-03-07T08:04:59.004+00:00",
+  "poNbr": null,
+  "fulfillmentCenter": "PARCEL_NINJA_WAREHOUSE TEST 3",
+  "warehouseId": "IMS_DEFAULT",
+  "orderStatus": "DRAFT",
+  "subOrderType": "DEFAULT",
+  "manifestLink": "NA"
+}
+```
+
+400
+```json
+{
+  "timestamp": "2024-03-07T08:06:54.59977",
+  "errorReasonCode": "CREATE_DRAFT_RECEIVING_ORDER_BAD_REQUEST_EXCEPTION",
+  "status": "BAD_REQUEST",
+  "message": "sellerId cannot be null",
+  "requestId": "65e9759d7a19674e94ef3dd96402795d",
+  "errors": [
+    "BAD_REQUEST_EXCEPTION"
+  ]
+}
+```
+
+417
+```json
+{
+  "timestamp": "2024-03-07T08:07:10.050725",
+  "errorReasonCode": null,
+  "status": "EXPECTATION_FAILED",
+  "message": "Required request header 'languageCode' for method parameter type String is not present",
+  "requestId": "65e975ae4a76b66babd3940eee35c96b",
+  "errors": [
+    "INVENTORY_EVENT_EXCEPTION"
+  ]
+}
+```
+
+### Update Draft Inbound API
+
+- ***Description**: This API is used to update draft inbounds that was already created
+- ***URL**: {DNS}/api/v1/ims/ro/draft
+- ***Verb**: PUT
+#### Request Header: - languageCode
+
+|Field|Desc|Datatype|Mandatory|Example|
+| :- | :- | :- | :- | :- |
+|languageCode|Language|Enum|Yes|En, Fr |
+
+#### Request
+
+```json
+{
+  "platformId": "Contractual Logistics:Imperial:WWHC",
+  "draftOrderId": "DRAFT-RO-10000000352",
+  "sellerId": "M1233",
+  "warehouseId": "IMS_DEFAULT",
+  "orderType": "DRAFT_RECEIVING_ORDER",
+  "draftPayload": "{\"consigneeOrderId\":\"\",\"fulfillmentType\":\"S2W\",\"shippingMethod\":\"DROP_AT_WAREHOUSE\",\"shippingOptions\":null,\"carrierMethod\":\"\",\"currency\":\"USD\",\"consignorDetails\":{\"consignorId\":\"ee00c1d4-9c25-5\",\"merchantTag\":null,\"pickUpInfo\":{\"customerAddressId\":null,\"contact\":{\"name\":{\"firstName\":\"ramanMechant 2\",\"lastName\":\"Warner\",\"middleName\":null,\"nickName\":null},\"phone\":\"R5wJgNioSTX2qFQlEyub0g\",\"email\":\"nike.merchant@maildrop.cc\"},\"address\":{\"unitNumber\":null,\"lineOne\":\"23423541\",\"lineTwo\":\"PEOPLES COLONY\",\"geographicLocation\":null,\"street\":\"RAJAN\",\"poBox\":null,\"city\":\"Zastron\",\"country\":\"South Africa\",\"zip\":\"9950\",\"region\":\"Free State\",\"addressType\":\"PICKUP\",\"suburb\":\"Nuwe Lokasie\",\"suburbId\":null,\"orderType\":null}}},\"warehouseInfo\":{\"warehouseId\":\"149091_ORACLE\",\"labelName\":null,\"name\":null,\"providerName\":null},\"parcelDetails\":{\"parcelConfigs\":[{\"unitOfMeasure\":\"container\",\"measurementValue\":\"40 feet\"}],\"attributeData\":[{\"attributeName\":\"multipleSkuPerBox\",\"attributeValue\":\"true\"},{\"attributeName\":\"oneSkuPerBox\",\"attributeValue\":\"false\"}]},\"lineDates\":{\"expectedShipDate\":\"2024-03-07\"},\"fulfillmentLines\":{\"totalLineQty\":10,\"orderLineDetails\":[{\"fulfillmentLineId\":1,\"refId\":null,\"itemDetails\":{\"inventoryId\":\"A126-F200229620C31629\",\"barcode\":\"TESTVENREY\",\"weight\":null,\"volume\":null,\"action\":null,\"quantity\":{\"orderQty\":10,\"unitOfMeasure\":\"EA\",\"measurementValue\":\"10\"},\"packingConfig\":{\"labeling\":false,\"bubbleWrapping\":false,\"bagging\":false,\"bubbleMail\":false},\"shnId\":null,\"issue\":null,\"sellerAction\":null}}]},\"boxInfo\":null,\"additionalAttributes\":[{\"attributeType\":\"ORDER_ATTRIBUTES\",\"attributeData\":[{\"attributeName\":\"priorityInbound\",\"attributeValue\":\"false\"}]}]}"
+}
+```
+
+|Field|Desc|Datatype|Mandatory|Example|
+| :- | :- | :- | :- | :- |
+|platformId|PlatformId, it is field validated from our end|String|Yes|"platformId”|
+|sellerId|SellerId of user creating draft inbound|String|Yes|“sellerId”|
+|warehouseId|WarehouseId for which inbound needs to be created|String|Yes|“warehouseId”|
+|orderType|DRAFT_RECEIVING_ORDER|String|Yes|“DRAFT_RECEIVING_ORDER”|
+|draftPayload|This field will have all the payload in string format that user has given|String |Yes|"draftPayload”|
+|draftOrderId|Draft inbound id which you want to update|String|Yes|“orderId”|
+
+#### Response
+```json
+{
+  "orderId": "DRAFT-RO-11000001744",
+  "sellerId": "4cf19e27-3fe0-5",
+  "createdOn": "2024-03-07T08:04:59.004+00:00",
+  "updatedAt": "2024-03-07T08:04:59.004+00:00",
+  "poNbr": null,
+  "fulfillmentCenter": "PARCEL_NINJA_WAREHOUSE TEST 3",
+  "warehouseId": "IMS_DEFAULT",
+  "orderStatus": "DRAFT",
+  "subOrderType": "DEFAULT",
+  "manifestLink": "NA"
+}
+```
+
+400
+```json
+{
+  "timestamp": "2024-03-07T08:13:58.720717",
+  "errorReasonCode": "UPDATE_DRAFT_RECEIVING_ORDER_BAD_REQUEST_EXCEPTION",
+  "status": "BAD_REQUEST",
+  "message": "No draft order found for this orderId",
+  "requestId": "65e97746bb10162cbf5a1148530b06f1",
+  "errors": [
+    "BAD_REQUEST_EXCEPTION"
+  ]
+}
+```
+
+417
+```json
+{
+  "timestamp": "2024-03-07T08:07:10.050725",
+  "errorReasonCode": null,
+  "status": "EXPECTATION_FAILED",
+  "message": "Required request header 'languageCode' for method parameter type String is not present",
+  "requestId": "65e975ae4a76b66babd3940eee35c96b",
+  "errors": [
+    "INVENTORY_EVENT_EXCEPTION"
+  ]
+}
+```
+
+### Get Draft Inbound Details API
+- **Description**: This API is used to fetch draft inbound details 
+- **URL**: {DNS}/api/v1/ims/ro/draft-order/{orderId}
+- **Verb**: GET
+#### Request Header
+languageCode
+|Field|Desc|Datatype|Mandatory|Example|
+| :- | :- | :- | :- | :- |
+|languageCode|Language|Enum|Yes|En, Fr |
+
+#### Request Param
+sellerId
+|Field|Desc|Datatype|Mandatory|Example|
+| :- | :- | :- | :- | :- |
+|sellerId|SellerId of user who created draft Inbound |String|Yes|“sellerId”|
+
+Curl 
+```bash
+curl --location 'localhost:8080/api/ims/v1/ro/draft-order/DRAFT-RO-11000001003?sellerId=4cf19e27-3fe0-5' \
+--header 'languageCode: en'
+```
+#### Response
+
+200
+```json
+{
+  "draftReceivingOrderId": "DRAFT-RO-11000001003",
+  "sellerId": "4cf19e27-3fe0-5",
+  "createdAt": "2023-11-02T12:33:55.000+00:00",
+  "updatedAt": "2023-12-04T07:47:23.000+00:00",
+  "fulfillmentCenter": "Linbro - South Africa",
+  "warehouseId": "IMS_PARCEL_NINJA_WAREHOUSE_1_PARCEL_NINJA",
+  "status": "CREATED",
+  "draftPayload": "{\"consigneeOrderId\":\"\",\"fulfillmentType\":\"S2W\",\"shippingMethod\":\"DROP_AT_WAREHOUSE\",\"shippingOptions\":null,\"carrierMethod\":\"\",\"currency\":\"USD\",\"consignorDetails\":{\"consignorId\":\"ee00c1d4-9c25-5\",\"merchantTag\":null,\"pickUpInfo\":{\"customerAddressId\":null,\"contact\":{\"name\":{\"firstName\":\"ramanMechant 2\",\"lastName\":\"Warner\",\"middleName\":null,\"nickName\":null},\"phone\":\"R5wJgNioSTX2qFQlEyub0g\",\"email\":\"nike.merchant@maildrop.cc\"},\"address\":{\"unitNumber\":null,\"lineOne\":\"23423541\",\"lineTwo\":\"PEOPLES COLONY\",\"geographicLocation\":null,\"street\":\"RAJAN\",\"poBox\":null,\"city\":\"Zastron\",\"country\":\"South Africa\",\"zip\":\"9950\",\"region\":\"Free State\",\"addressType\":\"PICKUP\",\"suburb\":\"Nuwe Lokasie\",\"suburbId\":null,\"orderType\":null}}},\"warehouseInfo\":{\"warehouseId\":\"149091_ORACLE\",\"labelName\":null,\"name\":null,\"providerName\":null},\"parcelDetails\":{\"parcelConfigs\":[{\"unitOfMeasure\":\"container\",\"measurementValue\":\"40 feet\"}],\"attributeData\":[{\"attributeName\":\"multipleSkuPerBox\",\"attributeValue\":\"true\"},{\"attributeName\":\"oneSkuPerBox\",\"attributeValue\":\"false\"}]},\"lineDates\":{\"expectedShipDate\":\"2024-03-07\"},\"fulfillmentLines\":{\"totalLineQty\":10,\"orderLineDetails\":[{\"fulfillmentLineId\":1,\"refId\":null,\"itemDetails\":{\"inventoryId\":\"A126-F200229620C31629\",\"barcode\":\"TESTVENREY\",\"weight\":null,\"volume\":null,\"action\":null,\"quantity\":{\"orderQty\":10,\"unitOfMeasure\":\"EA\",\"measurementValue\":\"10\"},\"packingConfig\":{\"labeling\":false,\"bubbleWrapping\":false,\"bagging\":false,\"bubbleMail\":false},\"shnId\":null,\"issue\":null,\"sellerAction\":null}}]},\"boxInfo\":null,\"additionalAttributes\":[{\"attributeType\":\"ORDER_ATTRIBUTES\",\"attributeData\":[{\"attributeName\":\"priorityInbound\",\"attributeValue\":\"false\"}]}]}"
+}
+```
+
+400
+```json
+{
+  "timestamp": "2024-03-07T08:52:27.948066",
+  "errorReasonCode": "CREATE_DRAFT_RECEIVING_ORDER_BAD_REQUEST_EXCEPTION",
+  "status": "BAD_REQUEST",
+  "message": "No draft orders found",
+  "requestId": "65e9804bec4f686a2b925b09c22ab253",
+  "errors": [
+    "BAD_REQUEST_EXCEPTION"
+  ]
+}
+```
+
+417
+```json
+{
+  "timestamp": "2024-03-07T08:52:48.884405",
+  "errorReasonCode": null,
+  "status": "EXPECTATION_FAILED",
+  "message": "Required request header 'languageCode' for method parameter type String is not present",
+  "requestId": "65e98060bf547548f698a5242a6bd33d",
+  "errors": [
+    "INVENTORY_EVENT_EXCEPTION"
+  ]
+}
+```
+
+### Draft RO Listing API
+- **Description**:This API is used to fetch all the draft inbounds based on filters
+- **Rest URL**: {DNS}/api/v1/ims/ro/draft-orders
+- **Verb**: GET
+#### Request Param
+limit, page, sortOn, direction,sellerId,searchParam
+
+|Field|Desc|Datatype|Mandatory|Example|
+| :- | :- | :- | :- | :- |
+|limit|Number of elemnts in one page|Integer|No|10|
+|page|Page Number|Integer|No|3|
+|sortOn|It will give you sorted response based on field you applied sorting|String|No|Value must be from the fields that are there in response only|
+|direction|ASC, DESC|String|No|ASC, DSC|
+|sellerId|SellerId of user who has created draft inbounds|String|Yes||
+|searchParam|This field will fetch draft orders based on searchParam on OrderId|String|Yes|“1118”|
+
+Curl 
+```bash
+curl --location 'localhost:8080/api/ims/v1/ro/draft-orders?sellerId=4cf19e27-3fe0-5&limit=5&page=1&sortOn=fulfillmentCenter&direction=ASC&searchParam=1118' \
+--header 'languageCode: en'
+```
+#### Response
+200
+```json
+{
+  "orderResponses": [
+    {
+      "orderId": "DRAFT-RO-11000001118",
+      "sellerId": "4cf19e27-3fe0-5",
+      "createdOn": "2023-12-13T10:14:56.000+00:00",
+      "updatedAt": "2023-12-13T10:14:56.000+00:00",
+      "poNbr": null,
+      "fulfillmentCenter": "EUROPE",
+      "warehouseId": "148796_ORACLE",
+      "orderStatus": "CREATED",
+      "subOrderType": "DEFAULT",
+      "manifestLink": "NA"
+    }
+  ],
+  "totalElements": 1,
+  "status": true
+}
+```
+
+400
+```json
+{
+  "timestamp": "2024-03-07T09:10:27.353116",
+  "errorReasonCode": null,
+  "status": "BAD_REQUEST",
+  "message": "BadRequestProvided: ",
+  "requestId": "65e984838206f58107a72556956984a2",
+  "errors": [
+    "Required request parameter 'sellerId' for method parameter type String is not present"
+  ]
+}
+```
+
+417
+```json
+{
+  "timestamp": "2024-03-07T09:11:07.361941",
+  "errorReasonCode": null,
+  "status": "EXPECTATION_FAILED",
+  "message": "Required request header 'languageCode' for method parameter type String is not present",
+  "requestId": "65e984ab1d674099ae64b3facdc65db3",
+  "errors": [
+    "INVENTORY_EVENT_EXCEPTION"
+  ]
+}
+```
+
+### Cancel RO API
+- **Description**: This API is used to cancel order that is in state which can be cancelled
+- **Rest URL**: {DNS}/api/v1/ims/inventory/cancel-order
+
+#### Request Param 
+|Field|Desc|Datatype|Mandatory|Example|
+| :- | :- | :- | :- | :- |
+|orderId|OrderId of order that user want to cancel|String|Yes|“orderId”|
+|orderType|Type of order that user want to cancel|String|Yes|“RECEIVING_ORDER”|
+|sellerId|SellerId of user who has created order|String|Yes|“sellerId”|
+
+#### Response
+200
+```json
+{
+  "message": "Cancel Order Successfully"
+}
+```
+
+400
+```json
+{
+  "timestamp": "2024-03-07T09:25:06.078617",
+  "errorReasonCode": null,
+  "status": "BAD_REQUEST",
+  "message": "BadRequestProvided: ",
+  "requestId": "65e987f12f8fba4c7c2844a2462714c2",
+  "errors": [
+    "Required request parameter 'orderId' for method parameter type String is not present"
+  ]
+}
+```
+
+417
+```json
+{
+  "timestamp": "2024-03-07T09:25:25.254235",
+  "errorReasonCode": null,
+  "status": "EXPECTATION_FAILED",
+  "message": "Required request header 'languageCode' for method parameter type String is not present",
+  "requestId": "65e988058e6ca8b39a32aace6567fd73",
   "errors": [
     "INVENTORY_EVENT_EXCEPTION"
   ]
