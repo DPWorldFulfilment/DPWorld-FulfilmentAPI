@@ -31,5 +31,3 @@ For detailed documentation on each component of SFS (OMS, IMS, TCM, OWMS), pleas
 ## Support
 
 For any inquiries or support related to SFS, please contact DP World's support team.
-```
-```
