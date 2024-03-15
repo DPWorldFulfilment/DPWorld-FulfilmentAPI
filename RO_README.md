@@ -937,3 +937,147 @@ curl --location 'localhost:8080/api/ims/v1/ro/draft-orders?sellerId=4cf19e27-3fe
   ]
 }
 ```
+
+## Save Stock Hold Notes API
+
+Encountering On-Hold receiving orders may result from two common reasons:
+
+1. **Unknown SKU**:
+   Unknown SKUs present challenges that may require attached documents or images, making the `url` field invaluable. Administrators have the ability to create or update SKUs, inventory IDs, or barcodes based on existing records. Products can also be identified using barcodes.
+
+2. **Excess Units**:
+   In cases of excess units, the inventory ID or SKU is typically already identified.
+
+To resolve the On-Hold status, users must create a new receiving order using the provided API endpoint (`RO Create API`). Once pending seller actions are addressed, a new receiving order will become visible in the UI, and the corresponding action will be marked as closed.
+
+### Save Stock Hold Note API (On Hold details)
+- **Description**: This API creates and updates stock hold notes for a particular Receiving order.
+- **URL**: /api/ims/v1/ro/save-stock-notes
+- **Verb**: PUT
+
+#### Request  
+```json
+{
+  "receivingOrderID": "DPW-RO-10000000818",
+  "pendingSellerActions": [
+    {
+      "stockHoldId": "SH789012",
+      "shnUiId": "DPW-SHN-1",
+      "issues": "Unknown SKU",
+      "unitsVariance": 2,
+      "action": "Inward as sellable",
+      "inventoryId": "DPW-A001-SDF432",
+      "url": "https://example.com/product-image",
+      "sku": "SKU789012",
+      "barcode": "1234567890123"
+    }
+  ]
+}
+```
+
+|Field|Desc|Datatype|Mandatory|Example|
+| :- | :- | :- | :- | :- |
+|receivingOrderID|Receiving Order created initially|String|Yes|DPW-RO-10000000818|
+
+
+|Field|Desc|Datatype|Mandatory|Example|
+| :- | :- | :- | :- | :- |
+|stockHoldId|Problem Id on Warehouse|<p>String</p><p></p>||SH789012|
+|shnUiId|SHN ID shown on UI|<p>String</p><p></p>||DPW-SHN-1|
+|issues|Reason for On-HOLD|<p>String</p><p></p>||(Unknown SKU/ Excess units)|
+|unitsVariance|Number of units received|<p>Integer</p><p></p>||20|
+|action|Status of SHN|<p>String</p><p></p>||(Inward as sellable/ Move to unsellable Inventory)|
+|inventoryId||<p>String</p><p></p>||DPW-A001-SDF432|
+|url|In case of unknown sku, url of document/Image|<p>String</p><p></p>|||
+|sku|Sku at warehouse|||SKU789012|
+|barcode|Barcode of product|||1234567890123|
+
+Curl 
+```bash
+curl -X 'PUT' \ 
+  'https://ecom-qa-ims.dpworld.com/api/ims/v1/ro/save-stock-notes' \ 
+  -H 'accept: application/json' \ 
+  -H 'Content-Type: application/json' \ 
+  -d '{ 
+  "receivingOrderID": "DPW-RO-10000000818", 
+  "pendingSellerActions": [ 
+    { 
+      "stockHoldId": "SH789012", 
+      "shnUiId": "DPW-SHN-1", 
+      "issues": "Unknown SKU", 
+      "unitsVariance": 2, 
+      "taggedNewFOId": "FO123456", 
+      "action": "Inward as sellable", 
+      "inventoryId": "DPW-A001-SDF432", 
+      "url": "https://example.com/product-image", 
+      "sku": "SKU789012", 
+      "barcode": "1234567890123" 
+    } 
+  ] 
+} 
+'
+```
+
+#### Response
+200 
+```json
+{
+  "data": {
+    "status": true
+  },
+  "message": "Success",
+  "httpStatus": "OK",
+  "requestId": "65e7fd2f884dc26c91dcc45ab136ad8e"
+}
+```
+
+400
+```json
+{
+  "timestamp": "2024-03-06T05:21:28.328138256",
+  "errorReasonCode": "UPDATE_RECEIVING_ORDER_BAD_REQUEST_EXCEPTION",
+  "status": "BAD_REQUEST",
+  "message": "receivingOrderId is NULL",
+  "requestId": "65e7fd5852556ad23b0bf0e7ceaaeec6",
+  "errors": [
+    "BAD_REQUEST_EXCEPTION"
+  ]
+}
+```
+
+404
+```json
+{
+  "timestamp": "2024-03-06T05:21:57.234943627",
+  "errorReasonCode": null,
+  "status": "NOT_FOUND",
+  "message": "Resource not found",
+  "requestId": "65e7fd75b08dc8bcce0ae9dc7db2aef0",
+  "errors": [
+    "Error occurred while updating StockHoldNotes "
+  ]
+}
+```
+
+### Get onhold inventories
+- **Description**: This API retrieves the complete list of Receiving Orders with a current status of ON-HOLD.
+- **URL**: /ims/v1/ro/on-hold-inventories
+- **Verb**: GET
+
+#### Request
+Curl 
+```bash
+curl --location 'http://ecom-qa-ims.dpworld.com/api/ims/v1/ro/on-hold-inventories' 
+```
+
+#### Response 
+200
+```json
+[
+  "DPW-RO-10000000820",
+  "DPW-RO-10000000823",
+  "DPW-RO-10000000824",
+  "DPW-RO-10000000825",
+  "DPW-RO-10000000829"
+]
+```
