@@ -245,14 +245,14 @@ To receive stock at the warehouse, a Receiving Order (inbound) needs to be creat
 - **Description**: - This API is used to fetch Inbound details  
 - **Verb**: - GET      
 - **URL**: - /api/v1/ims/ro/receving-orders/{orderId} 
-- **Request Header**: - languageCode, tenantCode 
-
+#### Request Header: 
 | Field       | Description        | Data Type | Mandatory | Example     | 
 |-------------|--------------------|-----------|-----------|-------------| 
 | languageCode| Language           | Enum      | Yes       | En, Fr      | 
 | tenantCode  | Takes Tenant type  | Enum      | Yes       | SFS, DUBUY_COM, THREE_PE | 
 
-#### RequestBody: - No Body 
+#### RequestBody:
+No Body 
 
 ```bash
 curl --location 'localhost:8080/api/ims/v1/ro/receiving-order/RO-11000001314' \
