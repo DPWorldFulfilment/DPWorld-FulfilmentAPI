@@ -662,14 +662,19 @@ curl --location '{dns}/api/ims/v1/products/quick-create' \
 ```
 
 ### Product Creation Through Excel Upload
-- **API Description**: To create products in bulk through excel upload (In Inventory > Products screen, this can be done using Add Product > Import From Excel ). 
+- **API Description**: To create products in bulk through excel upload (In Inventory > Products screen, this can be done using Add Product > Import From Excel ).
+  
 ![](Aspose.Words.02d19614-f101-4c21-8a77-fa6fd277995f.001.png)
+
 Sample Product Upload Template can be downloaded from this API:
 - {dns}/api/ims/v1/files/download/product-template
 
 It can also be downloaded from the UI:
+
 ![](Aspose.Words.02d19614-f101-4c21-8a77-fa6fd277995f.002.png)
+
 The status of the uploaded products can be viewed in Uploads > Products tab
+
 ![](Aspose.Words.02d19614-f101-4c21-8a77-fa6fd277995f.003.png)
 
 - **Rest URL**:  {dns}/api/ims/v1/products/bulk-upload
@@ -686,6 +691,34 @@ The status of the uploaded products can be viewed in Uploads > Products tab
     "additionalProp2": "string",
     "additionalProp3": "string"
   }
+}
+```
+|**Field**|**Description**|**Datatype**|**Mandatory**|**Example**|
+| :-: | :-: | :-: | :-: | :-: |
+|platformName|Name of the platform/store the products belong to.|string|No|"IMS"|
+|file|The xlsx file being uploaded|string|Yes|"product\_template.xlsx"|
+|uploadedBy|The identifier of the user who is uploading the file|string|No|"admin\_user"|
+|merchantId|Unique identifier for the merchant|string|Yes|"merchant123"|
+|extraParams.additionalProp1|Additional custom parameter 1|string|No|"extraValue1"|
+|extraParams.additionalProp2|Additional custom parameter 2|string|No|"extraValue2"|
+|extraParams.additionalProp3|Additional custom parameter 3|string|No|"extraValue3"|
+
+#### Response
+200
+```json
+{
+  "fileId": "file_2dece80f-dd1b-11ee-8b21-a379973b7e12",
+  "message": "File uploaded successfully",
+  "status": true,
+  "httpStatus": "OK"
+}
+```
+400
+```json
+{
+  "message": "Error:  Merchant details not present: 09d59fc6-0a96-5",
+  "status": false,
+  "httpStatus": "BAD_REQUEST"
 }
 ```
 
