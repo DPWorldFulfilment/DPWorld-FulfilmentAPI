@@ -7,8 +7,7 @@ To receive stock at the warehouse, a Receiving Order (inbound) needs to be creat
 ## Receiving Order APIs
 
 ### RO Create API
-
-- **Description**: This API creates an Inbound Order.
+This API creates an Inbound Order.
 - **URL**: `/api/v1/ims/ro/create`
 - **Verb**: POST
 #### Request Header: 
@@ -473,8 +472,7 @@ curl --location 'localhost:8080/api/ims/v1/ro/receiving-order/RO-11000001314' \
 ```
 
 ### RO Listing API
-
-- **Description**: This API is used to fetch all the inbounds based on filters
+This API is used to fetch all the inbounds based on filters
 - **Verb**:  POST
 - **URL**: /api/v1/ims/ro/receving-orders
 
@@ -603,8 +601,7 @@ curl --location 'localhost:8080/api/ims/v1/ro/receiving-orders?limit=2&page=1&so
 ```
 
 ### Create Draft Inbound API
-
-- **Description**: This API is used to create draft inbounds which can then be used to create inbound and you can update the draft
+This API is used to create draft inbounds which can then be used to create inbound and you can update the draft
 - **URL**: {DNS}/api/v1/ims/ro/draft
 - **Request Type**: POST 
 - **Request Header**: languageCode
@@ -678,8 +675,7 @@ curl --location 'localhost:8080/api/ims/v1/ro/receiving-orders?limit=2&page=1&so
 ```
 
 ### Update Draft Inbound API
-
-- ***Description**: This API is used to update draft inbounds that was already created
+This API is used to update draft inbounds that was already created
 - ***URL**: {DNS}/api/v1/ims/ro/draft
 - ***Verb**: PUT
 #### Request Header: - languageCode
@@ -755,7 +751,7 @@ curl --location 'localhost:8080/api/ims/v1/ro/receiving-orders?limit=2&page=1&so
 ```
 
 ### Get Draft Inbound Details API
-- **Description**: This API is used to fetch draft inbound details 
+This API is used to fetch draft inbound details 
 - **URL**: {DNS}/api/v1/ims/ro/draft-order/{orderId}
 - **Verb**: GET
 #### Request Header
@@ -820,7 +816,7 @@ curl --location 'localhost:8080/api/ims/v1/ro/draft-order/DRAFT-RO-11000001003?s
 ```
 
 ### Draft RO Listing API
-- **Description**:This API is used to fetch all the draft inbounds based on filters
+This API is used to fetch all the draft inbounds based on filters
 - **Rest URL**: {DNS}/api/v1/ims/ro/draft-orders
 - **Verb**: GET
 #### Request Param
@@ -892,7 +888,7 @@ curl --location 'localhost:8080/api/ims/v1/ro/draft-orders?sellerId=4cf19e27-3fe
 ```
 
 ### Cancel RO API
-- **Description**: This API is used to cancel order that is in state which can be cancelled
+This API is used to cancel order that is in state which can be cancelled
 - **Rest URL**: {DNS}/api/v1/ims/inventory/cancel-order
 
 #### Request Param 
@@ -951,7 +947,7 @@ Encountering On-Hold receiving orders may result from two common reasons:
 To resolve the On-Hold status, users must create a new receiving order using the provided API endpoint (`RO Create API`). Once pending seller actions are addressed, a new receiving order will become visible in the UI, and the corresponding action will be marked as closed.
 
 ### Save Stock Hold Note API (On Hold details)
-- **Description**: This API creates and updates stock hold notes for a particular Receiving order.
+This API creates and updates stock hold notes for a particular Receiving order.
 - **URL**: /api/ims/v1/ro/save-stock-notes
 - **Verb**: PUT
 
@@ -1060,7 +1056,7 @@ curl -X 'PUT' \
 ```
 
 ### Get onhold inventories
-- **Description**: This API retrieves the complete list of Receiving Orders with a current status of ON-HOLD.
+This API retrieves the complete list of Receiving Orders with a current status of ON-HOLD.
 - **URL**: /ims/v1/ro/on-hold-inventories
 - **Verb**: GET
 
