@@ -2,7 +2,7 @@
 
 ### Product Details API
 To get the product level details.
-- **Rest URL**: /api/ims/v1/products/details
+- **URL**: /api/ims/v1/products/details
 - **Request Type:** GET
 
 #### Query params
@@ -171,7 +171,7 @@ curl --location --request GET '{dns}/api/ims/v1/products/details?merchantId=0541
 
 ### Product Listing Page
 To get the list of products
-- **Rest URL**: /api/ims/v1/products/listing
+- **URL**: /api/ims/v1/products/listing
 - **Request Type:** POST
 
 #### Query params
@@ -342,7 +342,7 @@ curl --location '{dns}/api/ims/v1/products/listing' \
 
 ### Product Update API
 To update the detail of a product
-- **Rest URL**: /api/ims/v1/products
+- **URL**: /api/ims/v1/products
 - **Request Type:** PUT
 
 #### Header Params
@@ -565,7 +565,7 @@ curl --location --request PUT '{dns}/api/ims/v1/products' \
 
 ### Product Quick Create API
 To create a product with minimal information (name, sku, barcode) in the system.
-- **Rest URL**:  {dns}/api/ims/v1/products/quick-create
+- **URL**:  {dns}/api/ims/v1/products/quick-create
 - **Request Type:** POST
 
 #### Request
@@ -677,7 +677,7 @@ The status of the uploaded products can be viewed in Uploads > Products tab
 
 ![](Aspose.Words.02d19614-f101-4c21-8a77-fa6fd277995f.003.png)
 
-- **Rest URL**:  {dns}/api/ims/v1/products/bulk-upload
+- **URL**:  {dns}/api/ims/v1/products/bulk-upload
 - **Request Type**: POST
 #### Request Body
 ```json
