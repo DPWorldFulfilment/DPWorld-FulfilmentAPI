@@ -663,19 +663,6 @@ limit=15&page=0&direction=DESC&sortOn=orderDate
 }
 ```
 
-### Cancel Return
-- **Method**: POST
-- **Path**: - v1/return/{returnId}/cancel
-
-#### Response
-```json
-{
-  "data": true,
-  "message": "string",
-  "httpStatus": "100 CONTINUE"
-}
-```
-
 ### Shipment update
 Allows shipment to be either cancelled or put the shipment on –hold .
 
