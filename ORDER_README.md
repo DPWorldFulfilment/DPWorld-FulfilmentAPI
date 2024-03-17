@@ -645,80 +645,46 @@ limit=15&page=0&direction=DESC&sortOn=orderDate
 | :- | :- | :- |
 |totalCount|Long|Total count of filtered data|
 
+### Cancel Order
+- **Method**: PUT
+- **Path**: - v1/order/{orderId}/cancel
 
-**Cancel**
-**Order Cancel**
-**Method – PUT**
-**Path - v1/order/{orderId}/cancel**
-
-OrderId is oms id of order which is to be cancelled 
-
-Response
-
-
+#### Response
+```json
 {
-
-`  `"data": {
-
-`    `"shipmentIds": [
-
-`      `"shipmentId1"
-
-`    `],
-
-`    `"result": " Success/Failure "
-
-`  `},
-
-`  `"message": " Success! Your order has been canceled. ",
-
-`  `"httpStatus": "200 OK"
-
+  "data": {
+    "shipmentIds": [
+      "shipmentId1"
+    ],
+    "result": " Success/Failure "
+  },
+  "message": " Success! Your order has been canceled. ",
+  "httpStatus": "200 OK"
 }
+```
 
+### Cancel Return
+- **Method**: POST
+- **Path**: - v1/return/{returnId}/cancel
 
-**Return Cancel**
-
-**Method – POST**
-
-**Path - v1/return/{returnId}/cancel**
-
-OrderId is oms id of order which is to be cancelled 
-
-Response
-
-
+#### Response
+```json
 {
-
-`  `"data": true,
-
-`    `"result": " Success/Failure "
-
-`  `},
-
-`  `"message": " Success! The return has been canceled /  
-
-` `Cancellation Failed for ReturnId - id1 due to error ",
-
-`  `"httpStatus": "200 OK"
-
+  "data": true,
+  "message": "string",
+  "httpStatus": "100 CONTINUE"
 }
+```
 
-
-**Shipment update** 
-
-**Method – PATCH**
-
-**Path - v1/shipment/{shipmentTagId}/status-update**
-
-
-
+### Shipment update
 Allows shipment to be either cancelled or put the shipment on –hold .
 
 1. Cancelling the shipment will cancel the shipment and no further action will be taken
 1. Putting a shipment on hold mean the shipment will not be further processed and will be halt at current status . Later on the shipment can be released for further processing or even cancelled.
-##### **Request**
+- **Method**: PATCH
+- **Path**: v1/shipment/{shipmentTagId}/status-update
 
+##### Request
 |**Field**|**Description**|**Data Type**|**Mandatory**|**Example**|
 | :-: | :-: | :-: | :-: | :-: |
 |status|New updated status for the shipment|Enum|Yes|<p>*CANCELLED*</p><p>*ON\_HOLD*</p><p></p>|
@@ -727,3 +693,12 @@ Allows shipment to be either cancelled or put the shipment on –hold .
 |outBoundId|Id in warehouse|String|No|"1234ffgg"|
 |userId|User id of user performing action|<p>String</p><p></p>|No|“acef-id1”|
 |sellerId|Id of seller of order|<p>String</p><p></p>|No|<p>“acef-id1”</p><p></p>|
+
+#### Response
+```json
+{
+  "data": true,
+  "message": "string",
+  "httpStatus": "100 CONTINUE"
+}
+```
