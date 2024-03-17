@@ -11,6 +11,39 @@ In orders, there are two possible shipment types that can be used:
 1. **DPW Shipping –** Order is shipped to the customer
 1. **Warehouse Pickup –** Seller provides a pickup date and picks it up from the warehouse himself. In the case of warehouse pickup, the seller should able select the exact pickup date by when the items should be ready.
 
+## Order Statuses
+| Status | Description                                                                               |
+|------------|-------------------------------------------------------------------------------------------|
+| COMPLETED  | The order is completed.                                                  |
+| CREATED    | The order was placed or created.                                                          |
+| CANCELLED  | The order was canceled|
+| PROCESSING | The order fulfillment is in progress.                                                      |
+
+## Fulfilment Statuses
+| Status             | Description                                                                                                      |
+|------------------------|------------------------------------------------------------------------------------------------------------------|
+| CREATED                | Order has been created.                                                                                          |
+| AWAITING_STOCK         | Order is in awaiting stock and will be processed once the item is available.                                       |
+| IN_VALIDATION          | The order is in validation process.                                                                             |
+| READY_FOR_PICKING      | Order is ready for picking.|
+| IN_PICKING_QUEUE       | Order is in the picking queue.                                                                                   |
+| PICKED                 | Order items have been picked|
+| PACKED                 | Order items have been packed|
+| SHIPPED                | Order has been shipped|
+| OUT_FOR_DELIVERY       | Order is out for delivery|
+| DELIVERED              | Order has been delivered                                                 |
+| COLLECTED              | Order has been collected            |
+| ON_HOLD                | Order is on hold, Internal Validations failed / Manual movement to On Hold.                                       |
+| EXCEPTION              | Order is in an exception state, Internal Validations failed / Shipment moved to On Hold.                       |
+| FAILED_DELIVERY_ATTEMPT | Failed attempt to deliver order                                            |
+| RETURN_TO_ORIGIN       | Order is being returned to origin, RTO/Return is sutomatically created for the same |
+| UNRECOVERABLE          | Order is in an unrecoverable state                                          |
+| COURIER_CANCELLED      | Order was cancelled by the courier                                  |
+| CANCELLED              | Order has been cancelled                                              |
+| COURIER_PICKUP_UNSUCCESSFUL | Courier pickup attempt was unsuccessful.                                                                     |
+| COURIER_DELIVERY_UNSUCCESSFUL | Courier delivery attempt was unsuccessful.                                                                 |
+| COURIER_COLLECTION_UNSUCCESSFUL | Courier collection attempt was unsuccessful.                                                             |
+
 ### Create Order
 - **Description**: This api is used to create a filfilment order
 - **Path**: /v1/order/place-order
@@ -645,6 +678,847 @@ limit=15&page=0&direction=DESC&sortOn=orderDate
 | :- | :- | :- |
 |totalCount|Long|Total count of filtered data|
 
+### Get Order
+Get a specific order using the orderId
+- **Method**: GET
+- **Path**: - /v1/order/{orderId}
+  
+#### Response
+```json
+{
+  "data": {
+    "orderId": "string",
+    "fulfillmentOrderId": 0,
+    "orderChannelId": "3PE",
+    "orderSourceId": "DUBUY",
+    "buId": "Nike.com",
+    "orderCreationType": "AssistedChannel",
+    "orderType": "string",
+    "customerType": "string",
+    "customerInfo": {
+      "customerReference": "WH001",
+      "customerAccountId": "ACC123",
+      "customerFullName": "XYZ Pharmacy"
+    },
+    "consigneeOrderId": "string",
+    "orderPlacedAt": "2024-03-17T06:19:42.816Z",
+    "shippingMethod": "EXPEDITED",
+    "carrierMethod": "string",
+    "customerLanguageId": 0,
+    "fulfillmentType": "DPW_FULFILLMENT",
+    "currency": "string",
+    "fulfillmentLines": {
+      "totalLineQty": 0,
+      "currencyUnit": "string",
+      "country": "string",
+      "lineTotal": {
+        "currencyAmount": "100.0",
+        "currencyUnit": "USD"
+      },
+      "orderLineDetails": [
+        {
+          "id": 0,
+          "fulfillmentLineId": 0,
+          "lineOrderPlacedAt": "2024-03-17T06:19:42.816Z",
+          "lineOrderStatus": "string",
+          "shippingMethod": "EXPEDITED",
+          "shippingDetail": {
+            "shippingType": "DPW_SHIPPING",
+            "shippingOption": "CHEAPEST",
+            "shippingMethod": "Super Fast",
+            "fulfillmentCenter": "Joberg, South Africa",
+            "quoteId": "Q12345",
+            "courierName": "FedEx"
+          },
+          "quantity": {
+            "unitOfMeasure": "string",
+            "measurementValueInDouble": 0
+          },
+          "itemDetails": {
+            "itemId": "123456",
+            "sku": "SKU123",
+            "variantId": "VARIANT789",
+            "itemType": "PHYSICAL",
+            "sellerId": "SELLER123",
+            "upc": "123456789012",
+            "gtin": "GTIN123",
+            "itemDesc": "High-quality T-shirt",
+            "itemUrl": "https://example.com/item123",
+            "offerId": "OFFER456",
+            "externalRefId": "REF456",
+            "inventoryId": "INV12345",
+            "itemAttributes": {
+              "height": "10",
+              "length": "20",
+              "width": "15",
+              "weight": "1",
+              "depth": "1",
+              "vnpkQty": "10",
+              "whpkQty": "5"
+            },
+            "quantity": {
+              "unitOfMeasure": "string",
+              "measurementValue": 0,
+              "measurementValueInDouble": 0
+            },
+            "requestedQuantity": {
+              "unitOfMeasure": "string",
+              "measurementValue": 0,
+              "measurementValueInDouble": 0
+            },
+            "status": "string"
+          },
+          "lineDates": {
+            "id": 0,
+            "minDeliveryDate": "2024-03-17T06:19:42.816Z",
+            "maxDeliveryDate": "2024-03-17T06:19:42.816Z",
+            "orderProcessingDate": "2024-03-17T06:19:42.816Z",
+            "preciseDeliveryDate": "2024-03-17T06:19:42.816Z",
+            "expectedShipDate": "2024-03-17T06:19:42.816Z"
+          },
+          "chargeDetails": [
+            {
+              "id": 0,
+              "chargeCategory": "PRODUCT",
+              "chargeName": "string",
+              "currencyAmount": "string"
+            }
+          ],
+          "notes": [
+            {
+              "commentType": "SellerNote",
+              "comment": "Please pack items securely."
+            }
+          ]
+        }
+      ],
+      "additionalAttributes": [
+        {
+          "attributeType": "string",
+          "attributeData": [
+            {
+              "id": 0,
+              "attributeName": "string",
+              "attributeValue": "string"
+            }
+          ]
+        }
+      ]
+    },
+    "lineDates": {
+      "id": 0,
+      "minDeliveryDate": "2024-03-17T06:19:42.816Z",
+      "maxDeliveryDate": "2024-03-17T06:19:42.816Z",
+      "orderProcessingDate": "2024-03-17T06:19:42.816Z",
+      "preciseDeliveryDate": "2024-03-17T06:19:42.816Z",
+      "expectedShipDate": "2024-03-17T06:19:42.816Z"
+    },
+    "shippingTo": {
+      "id": 0,
+      "contact": {
+        "contactId": 0,
+        "name": {
+          "customerInfoId": 0,
+          "firstName": "string",
+          "lastName": "string",
+          "middleName": "string",
+          "nickName": "string"
+        },
+        "phone": "string",
+        "countryCode": "string",
+        "email": "string"
+      },
+      "address": {
+        "unitNumber": "Apt 4B",
+        "lineOne": "123 Main St",
+        "lineTwo": "Apt 4B",
+        "geographicLocation": "string",
+        "street": "Maple Avenue",
+        "city": "New York",
+        "state": "NY",
+        "country": "USA",
+        "zip": "10001",
+        "suburb": "Downtown",
+        "addressType": "Residential",
+        "latitude": "45.41634",
+        "longitude": "-75.6868",
+        "companyId": "12345",
+        "locationId": "1234"
+      }
+    },
+    "totalChargeDetails": [
+      {
+        "id": 0,
+        "chargeCategory": "PRODUCT",
+        "chargeName": "string",
+        "currencyAmount": "string"
+      }
+    ],
+    "attachments": [
+      {
+        "documentId": 0,
+        "documentOwner": "string",
+        "documentOwnerId": "string",
+        "documentName": "string",
+        "documentCategory": "string",
+        "documentSubCategory": "string",
+        "documentLink": "string",
+        "notes": "string",
+        "createdAt": "2024-03-17T06:19:42.816Z",
+        "createdBy": "string",
+        "documentAttributes": [
+          {
+            "attributeName": "string",
+            "attributeValue": "string"
+          }
+        ]
+      }
+    ],
+    "paymentDetails": {
+      "paymentType": "PRE_PAID",
+      "status": "UNSPECIFIED_PAYMENT_STATUS",
+      "amountPaid": 100,
+      "payments": [
+        {
+          "id": 0,
+          "paymentReferenceId": "PAY12345",
+          "pg": "PayPal",
+          "paymentMethod": "Credit Card",
+          "transactionDate": "2023-08-09T12:34:56Z",
+          "amount": 100,
+          "status": "UNSPECIFIED_PAYMENT_STATUS"
+        }
+      ],
+      "billTo": {
+        "id": 0,
+        "contact": {
+          "contactId": 0,
+          "name": {
+            "customerInfoId": 0,
+            "firstName": "string",
+            "lastName": "string",
+            "middleName": "string",
+            "nickName": "string"
+          },
+          "phone": "string",
+          "countryCode": "string",
+          "email": "string"
+        },
+        "address": {
+          "unitNumber": "Apt 4B",
+          "lineOne": "123 Main St",
+          "lineTwo": "Apt 4B",
+          "geographicLocation": "string",
+          "street": "Maple Avenue",
+          "city": "New York",
+          "state": "NY",
+          "country": "USA",
+          "zip": "10001",
+          "suburb": "Downtown",
+          "addressType": "Residential",
+          "latitude": "45.41634",
+          "longitude": "-75.6868",
+          "companyId": "12345",
+          "locationId": "1234"
+        }
+      }
+    },
+    "orderStatus": "string",
+    "rmaId": "string",
+    "parentOrderId": "string",
+    "parentShipmentId": "string",
+    "pickupFrom": {
+      "id": 0,
+      "contact": {
+        "contactId": 0,
+        "name": {
+          "customerInfoId": 0,
+          "firstName": "string",
+          "lastName": "string",
+          "middleName": "string",
+          "nickName": "string"
+        },
+        "phone": "string",
+        "countryCode": "string",
+        "email": "string"
+      },
+      "address": {
+        "unitNumber": "Apt 4B",
+        "lineOne": "123 Main St",
+        "lineTwo": "Apt 4B",
+        "geographicLocation": "string",
+        "street": "Maple Avenue",
+        "city": "New York",
+        "state": "NY",
+        "country": "USA",
+        "zip": "10001",
+        "suburb": "Downtown",
+        "addressType": "Residential",
+        "latitude": "45.41634",
+        "longitude": "-75.6868",
+        "companyId": "12345",
+        "locationId": "1234"
+      }
+    },
+    "inventoryTypeSelection": "string"
+  },
+  "message": "string",
+  "httpStatus": "100 CONTINUE"
+}
+```
+### Get Shipment
+Get a specific shipment using the shipmentId of order
+- **Method**: GET
+- **Path**: - /v1/shipment/{shippingId}
+  
+#### Response
+```json
+{
+  "data": {
+    "state": {
+      "status": "string",
+      "subStatus": "string",
+      "orderType": "string",
+      "previousStatus": "string",
+      "shippingType": "DPW_SHIPPING",
+      "isAllReturned": true
+    },
+    "cardList": [
+      {
+        "cardId": "ACTIONS",
+        "cardRank": 0,
+        "actionList": [
+          "string"
+        ],
+        "labelList": [
+          {
+            "additionalProp1": {},
+            "additionalProp2": {},
+            "additionalProp3": {}
+          }
+        ]
+      }
+    ],
+    "orderItems": [
+      {
+        "itemId": "string",
+        "itemUrl": "string",
+        "itemDesc": "string",
+        "quantity": 0,
+        "sku": "string",
+        "variantId": "string",
+        "itemType": "string",
+        "externalRefId": "string",
+        "inventoryId": "string",
+        "fulfillmentLineId": 0,
+        "itemSelectionCriteria": "string",
+        "expiryStartDate": "2024-03-17T06:24:04.686Z",
+        "expiryEndDate": "2024-03-17T06:24:04.686Z",
+        "batchDetails": "string",
+        "returnAction": "string",
+        "actionTaken": "string",
+        "reason": "string",
+        "sellerId": "string",
+        "omsItemId": "string",
+        "barcode": "string",
+        "returnQuantity": 0
+      }
+    ],
+    "orderDetail": {
+      "orderId": "string",
+      "customerType": "string",
+      "sourceStore": "string",
+      "orderValueCurrency": "string",
+      "orderValue": 0,
+      "store": "string",
+      "orderPlacedOn": "2024-03-17T06:24:04.686Z",
+      "orderStatus": "string",
+      "orderType": "string",
+      "rmaId": "string",
+      "parentOrderId": "string",
+      "parentShipmentId": "string",
+      "consigneeOrderId": "string",
+      "inventoryTypeSelection": "string"
+    },
+    "paymentDetail": {
+      "paymentType": "PRE_PAID",
+      "status": "UNSPECIFIED_PAYMENT_STATUS",
+      "amountPaid": 100,
+      "payments": [
+        {
+          "id": 0,
+          "paymentReferenceId": "PAY12345",
+          "pg": "PayPal",
+          "paymentMethod": "Credit Card",
+          "transactionDate": "2023-08-09T12:34:56Z",
+          "amount": 100,
+          "status": "UNSPECIFIED_PAYMENT_STATUS"
+        }
+      ],
+      "billTo": {
+        "id": 0,
+        "contact": {
+          "contactId": 0,
+          "name": {
+            "customerInfoId": 0,
+            "firstName": "string",
+            "lastName": "string",
+            "middleName": "string",
+            "nickName": "string"
+          },
+          "phone": "string",
+          "countryCode": "string",
+          "email": "string"
+        },
+        "address": {
+          "unitNumber": "Apt 4B",
+          "lineOne": "123 Main St",
+          "lineTwo": "Apt 4B",
+          "geographicLocation": "string",
+          "street": "Maple Avenue",
+          "city": "New York",
+          "state": "NY",
+          "country": "USA",
+          "zip": "10001",
+          "suburb": "Downtown",
+          "addressType": "Residential",
+          "latitude": "45.41634",
+          "longitude": "-75.6868",
+          "companyId": "12345",
+          "locationId": "1234"
+        }
+      }
+    },
+    "contactInfo": {
+      "id": 0,
+      "contact": {
+        "contactId": 0,
+        "name": {
+          "customerInfoId": 0,
+          "firstName": "string",
+          "lastName": "string",
+          "middleName": "string",
+          "nickName": "string"
+        },
+        "phone": "string",
+        "countryCode": "string",
+        "email": "string"
+      },
+      "address": {
+        "unitNumber": "Apt 4B",
+        "lineOne": "123 Main St",
+        "lineTwo": "Apt 4B",
+        "geographicLocation": "string",
+        "street": "Maple Avenue",
+        "city": "New York",
+        "state": "NY",
+        "country": "USA",
+        "zip": "10001",
+        "suburb": "Downtown",
+        "addressType": "Residential",
+        "latitude": "45.41634",
+        "longitude": "-75.6868",
+        "companyId": "12345",
+        "locationId": "1234"
+      }
+    },
+    "attachments": [
+      {
+        "documentId": 0,
+        "documentOwner": "string",
+        "documentOwnerId": "string",
+        "documentName": "string",
+        "documentCategory": "string",
+        "documentSubCategory": "string",
+        "documentLink": "string",
+        "notes": "string",
+        "createdAt": "2024-03-17T06:24:04.686Z",
+        "createdBy": "string",
+        "documentAttributes": [
+          {
+            "attributeName": "string",
+            "attributeValue": "string"
+          }
+        ]
+      }
+    ],
+    "shipmentDetail": {
+      "shippingType": "DPW_SHIPPING",
+      "shippingOption": "CHEAPEST",
+      "shippingMethod": "Super Fast",
+      "fulfillmentCenter": "Joberg, South Africa",
+      "quoteId": "Q12345",
+      "courierName": "FedEx"
+    },
+    "additionalAttributes": [
+      {
+        "attributeType": "string",
+        "attributeData": [
+          {
+            "id": 0,
+            "attributeName": "string",
+            "attributeValue": "string"
+          }
+        ]
+      }
+    ],
+    "remarkResponses": [
+      {
+        "remarkOwner": "string",
+        "remarkOwnerId": "string",
+        "remarkCategory": "string",
+        "message": "string",
+        "createdAt": "2024-03-17T06:24:04.686Z",
+        "createdBy": "string"
+      }
+    ],
+    "pickupInfo": {
+      "id": 0,
+      "contact": {
+        "contactId": 0,
+        "name": {
+          "customerInfoId": 0,
+          "firstName": "string",
+          "lastName": "string",
+          "middleName": "string",
+          "nickName": "string"
+        },
+        "phone": "string",
+        "countryCode": "string",
+        "email": "string"
+      },
+      "address": {
+        "unitNumber": "Apt 4B",
+        "lineOne": "123 Main St",
+        "lineTwo": "Apt 4B",
+        "geographicLocation": "string",
+        "street": "Maple Avenue",
+        "city": "New York",
+        "state": "NY",
+        "country": "USA",
+        "zip": "10001",
+        "suburb": "Downtown",
+        "addressType": "Residential",
+        "latitude": "45.41634",
+        "longitude": "-75.6868",
+        "companyId": "12345",
+        "locationId": "1234"
+      }
+    },
+    "packInfo": {
+      "StoreName": "string",
+      "EmployeeId": "string",
+      "PackCreatedDate": "2024-03-17T06:24:04.686Z",
+      "PackStartedDate": "2024-03-17T06:24:04.686Z",
+      "PackFinishedDate": "2024-03-17T06:24:04.686Z",
+      "LatestDateStarted": "2024-03-17T06:24:04.686Z",
+      "PackStarted": true,
+      "PackFinished": true,
+      "StoreId": "string",
+      "Boxes": [
+        {
+          "BoxId": "string",
+          "BoxType": "string",
+          "BoxDimensions": {
+            "Length": 0,
+            "Width": 0,
+            "Height": 0,
+            "Weight": 0
+          },
+          "BoxBarcode": "string",
+          "Products": [
+            {
+              "ItemId": "string",
+              "Description": "string",
+              "Sku": "string",
+              "Quantity": 0,
+              "CaptureSerial": true,
+              "CaptureIMEI": true,
+              "Length": 0,
+              "Width": 0,
+              "Height": 0,
+              "Weight": 0,
+              "Volume": 0,
+              "TotalVolume": 0
+            }
+          ],
+          "PackingMaterials": [
+            "string"
+          ]
+        }
+      ],
+      "ForCollection": true,
+      "WarehouseId": "string",
+      "WarehouseName": "string"
+    },
+    "deliveryInfo": {
+      "customer": "string",
+      "contactNo": "string",
+      "email": "string",
+      "companyName": "string",
+      "addressLine1": "string",
+      "addressLine2": "string",
+      "suburb": "string",
+      "postalCode": "string",
+      "deliveryOption": {
+        "deliveryQuoteId": "string",
+        "nominatedServiceCode": "string",
+        "courier": "string",
+        "dispatchDate": "string",
+        "deliveryStartDate": "string",
+        "deliveryEndDate": "string",
+        "businessDays": 0,
+        "validUntil": "string",
+        "chargeWeightKG": 0,
+        "priceExVAT": 0,
+        "specialServiceCode": 0
+      },
+      "dispatchDate": "string",
+      "arrivalDate": "string",
+      "estimatedArrivalDate": "string",
+      "forCollection": true,
+      "trackingNo": "string",
+      "trackingUrl": "string",
+      "trackingSignedBy": "string",
+      "podImgUrl": "string",
+      "courierName": "string",
+      "traderPaid": true,
+      "courierPaid": true,
+      "status": {
+        "message": "string",
+        "timestamp": 0,
+        "level": 0,
+        "throwable": {
+          "stackTrace": [
+            {
+              "classLoaderName": "string",
+              "moduleName": "string",
+              "moduleVersion": "string",
+              "methodName": "string",
+              "fileName": "string",
+              "lineNumber": 0,
+              "nativeMethod": true,
+              "className": "string"
+            }
+          ],
+          "message": "string",
+          "suppressed": [
+            {
+              "stackTrace": [
+                {
+                  "classLoaderName": "string",
+                  "moduleName": "string",
+                  "moduleVersion": "string",
+                  "methodName": "string",
+                  "fileName": "string",
+                  "lineNumber": 0,
+                  "nativeMethod": true,
+                  "className": "string"
+                }
+              ],
+              "message": "string",
+              "localizedMessage": "string"
+            }
+          ],
+          "localizedMessage": "string"
+        },
+        "origin": {},
+        "effectiveLevel": 0
+      },
+      "events": [
+        {
+          "message": "string",
+          "timestamp": 0,
+          "level": 0,
+          "throwable": {
+            "stackTrace": [
+              {
+                "classLoaderName": "string",
+                "moduleName": "string",
+                "moduleVersion": "string",
+                "methodName": "string",
+                "fileName": "string",
+                "lineNumber": 0,
+                "nativeMethod": true,
+                "className": "string"
+              }
+            ],
+            "message": "string",
+            "suppressed": [
+              {
+                "stackTrace": [
+                  {
+                    "classLoaderName": "string",
+                    "moduleName": "string",
+                    "moduleVersion": "string",
+                    "methodName": "string",
+                    "fileName": "string",
+                    "lineNumber": 0,
+                    "nativeMethod": true,
+                    "className": "string"
+                  }
+                ],
+                "message": "string",
+                "localizedMessage": "string"
+              }
+            ],
+            "localizedMessage": "string"
+          },
+          "origin": {},
+          "effectiveLevel": 0
+        }
+      ],
+      "courierBillingInfo": {
+        "boxList": [
+          {
+            "name": "string",
+            "quantity": 0,
+            "weight": 0
+          }
+        ],
+        "cost": 0,
+        "deliveryEndDate": "string",
+        "deliveryStartDate": "string",
+        "dispatchDate": "string",
+        "region": "string",
+        "service": {
+          "code": "string",
+          "description": "string",
+          "workingDays": 0
+        },
+        "shippingWeight": 0
+      },
+      "totalBoxes": 0,
+      "inboundReference": "string",
+      "takealot": true,
+      "bookingDate": "2024-03-17T06:24:04.686Z",
+      "totes": [
+        "string"
+      ]
+    },
+    "warehouseDetails": {
+      "id": 0,
+      "label": "string",
+      "name": "string",
+      "warehouseId": "string",
+      "actualWarehouseId": "string",
+      "providerName": "string",
+      "channelId": "string",
+      "location": {
+        "contact": {
+          "name": {
+            "firstName": "David",
+            "lastName": "Warner",
+            "middleName": "Andrew",
+            "nickName": "Bull"
+          },
+          "countryCode": "+91",
+          "phone": "234567210206",
+          "unparsedPhoneNo": "string",
+          "email": "david@yahoo.com"
+        },
+        "address": {
+          "id": 0,
+          "lineOne": "string",
+          "lineTwo": "string",
+          "street": "string",
+          "poBox": "string",
+          "city": "string",
+          "state": "string",
+          "country": "string",
+          "zip": "string",
+          "addressType": "string"
+        }
+      }
+    },
+    "dimsUom": {
+      "weightUom": "string",
+      "lengthUom": "string"
+    },
+    "returnReferences": [
+      {
+        "returnType": "string",
+        "returnId": "string"
+      }
+    ],
+    "boxLabels": "string",
+    "items": [
+      {
+        "id": 0,
+        "internalId": "string",
+        "itemNo": "string",
+        "serialNumbers": [
+          "string"
+        ],
+        "name": "string",
+        "imageURL": "string",
+        "qty": 0,
+        "dims": {
+          "shippingWeightGrams": 0,
+          "length": 0,
+          "width": 0,
+          "height": 0,
+          "weight": 0
+        },
+        "specializedItemBarcode": "string",
+        "barcode": "string",
+        "allocateFromReserve": true,
+        "receivedQty": 0,
+        "instock": 0,
+        "allocated": 0,
+        "unallocated": 0,
+        "onReorder": 0,
+        "broken": 0,
+        "reserved": 0,
+        "stockItemId": 0,
+        "clientStockItemId": "string",
+        "status": {
+          "code": 0,
+          "timeStamp": "string",
+          "description": "string"
+        },
+        "events": [
+          {
+            "code": 0,
+            "timeStamp": "string",
+            "description": "string"
+          }
+        ],
+        "onHold": true,
+        "forwardCover": 0,
+        "startExpiryDate": "string",
+        "endExpiryDate": "string",
+        "lastReceivedBarcode": "string",
+        "returnReason": "string",
+        "returnDetail": "string",
+        "virtualSku": "string",
+        "warehouseName": "string",
+        "lastModifiedDate": "2024-03-17T06:24:04.686Z",
+        "requiredBatchNos": [
+          "string"
+        ],
+        "packingSuggestion": "string",
+        "costPrice": 0,
+        "sellingPrice": 0,
+        "captureSerial": true,
+        "captureExpiry": true,
+        "captureIMEI": true,
+        "fromReserve": true,
+        "dateAdded": "2024-03-17T06:24:04.686Z",
+        "lastSoldDate": "2024-03-17T06:24:04.686Z",
+        "lastReceivedDate": "2024-03-17T06:24:04.686Z",
+        "inspect": true,
+        "unsellable": true,
+        "createdFromVirtual": true,
+        "StoreSupplierId": "string",
+        "warehouseId": "string"
+      }
+    ]
+  },
+  "message": "string",
+  "httpStatus": "100 CONTINUE"
+}
+```
 ### Cancel Order
 - **Method**: PUT
 - **Path**: - v1/order/{orderId}/cancel
