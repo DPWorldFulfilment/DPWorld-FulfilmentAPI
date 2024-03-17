@@ -547,7 +547,7 @@ limit=15&page=0&direction=DESC&sortOn=orderDate
 | :- | :- | :- | :-: |
 |limit|Integer|20| |
 |<p>page</p><p> </p>|Integer|0|Starts with 0|
-|<p>sortOn</p><p> </p>|String |shipmentId|<p>Accepted values: [orderId, shipmentId, sourceStore, orderDate,</p><p>`            `fulfillmentCentre, shipmentStatus, shipmentSubStatus]</p>|
+|<p>sortOn</p><p> </p>|String |shipmentId|<p>Accepted values: [orderId, shipmentId, sourceStore, orderDate, fulfillmentCentre, shipmentStatus, shipmentSubStatus]</p>|
 |<p>direction</p><p> </p>|String|DESC|Case ignored; order will be “desc” if input is “desc” otherwise “asc”|
 
 #### Request
@@ -1546,12 +1546,18 @@ Allows shipment to be either cancelled or put the shipment on –hold .
 - **Path**: v1/shipment/{shipmentTagId}/status-update
 
 ##### Request
+```json
+{
+  "status": "CREATED",
+  "reserveInventory": true,
+  "userId": "string",
+  "sellerId": "string"
+}
+```
 |**Field**|**Description**|**Data Type**|**Mandatory**|**Example**|
 | :-: | :-: | :-: | :-: | :-: |
-|status|New updated status for the shipment|Enum|Yes|<p>*CANCELLED*</p><p>*ON\_HOLD*</p><p></p>|
-|subStatus|Sub status of shipment|String|NO|"”|
+|status|New updated status for the shipment|Enum|Yes|CANCELLED, ON_HOLD|
 |reserveInventory|Reserve inventory in warehouse when putting shipment on hold|Boolean|No|true/false|
-|outBoundId|Id in warehouse|String|No|"1234ffgg"|
 |userId|User id of user performing action|<p>String</p><p></p>|No|“acef-id1”|
 |sellerId|Id of seller of order|<p>String</p><p></p>|No|<p>“acef-id1”</p><p></p>|
 
