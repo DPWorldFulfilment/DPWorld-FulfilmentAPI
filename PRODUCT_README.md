@@ -1,7 +1,7 @@
 # Product APIs
 
 ### Product Details API
-- **API Description**: Fetches the product level details.
+To get the product level details.
 - **Rest URL**: /api/ims/v1/products/details
 - **Request Type:** GET
 
@@ -170,7 +170,7 @@ curl --location --request GET '{dns}/api/ims/v1/products/details?merchantId=0541
 ```
 
 ### Product Listing Page
-- **API Description**: Fetches list of products to be displayed on the Inventory -> Products listing page.
+To get the list of products
 - **Rest URL**: /api/ims/v1/products/listing
 - **Request Type:** POST
 
@@ -341,7 +341,7 @@ curl --location '{dns}/api/ims/v1/products/listing' \
 ```
 
 ### Product Update API
-- **API Description:** To update product level details in the system.
+To update the detail of a product
 - **Rest URL**: /api/ims/v1/products
 - **Request Type:** PUT
 
@@ -564,7 +564,7 @@ curl --location --request PUT '{dns}/api/ims/v1/products' \
 ```
 
 ### Product Quick Create API
-- **API Description**: To create a product with minimal information (name, sku, barcode) in the system.
+To create a product with minimal information (name, sku, barcode) in the system.
 - **Rest URL**:  {dns}/api/ims/v1/products/quick-create
 - **Request Type:** POST
 
@@ -662,7 +662,7 @@ curl --location '{dns}/api/ims/v1/products/quick-create' \
 ```
 
 ### Product Creation Through Excel Upload
-- **API Description**: To create products in bulk through excel upload (In Inventory > Products screen, this can be done using Add Product > Import From Excel ).
+To create products in bulk through excel upload (In Inventory > Products screen, this can be done using Add Product > Import From Excel ).
   
 ![](Aspose.Words.02d19614-f101-4c21-8a77-fa6fd277995f.001.png)
 
@@ -721,6 +721,12 @@ The status of the uploaded products can be viewed in Uploads > Products tab
   "httpStatus": "BAD_REQUEST"
 }
 ```
+
+## Bundled Product
+A bundle is set of different SKUs clubbed together. Inventory of all child SKUs need to be present to fulfill a bundle order. 
+- **Create Bundle**: Add inventoryId and quantity per bundle
+- **​Edit Bundle**: Change the inventoryId and qunatity within a bundle
+- **Remove Bundle**: Will mark the bundle Inactive
 
 ### Create Bundled Product
 - **Description**: Converts a product into bundled product.
