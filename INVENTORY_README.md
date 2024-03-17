@@ -1,8 +1,8 @@
 # Inventory APIs
 
-### Inventory Summary Listing API
-- **API Description**:  Fetches inventory summary listing for products that is displayed on the Inventory -> Inventory Status listing page. 
-- **Rest URL**:  {dns}/api/ims/v1/inventory/summary/warehouse 
+### Inventory Summary API
+Inventory summary for products
+- **URL**:  {dns}/api/ims/v1/inventory/summary/warehouse 
 - **Request Type**: POST
 
 #### Query params
@@ -380,8 +380,8 @@ curl --location '{dns}/api/ims/v1/inventory/inventory-summary/warehouse?pageNo=1
 ```
 
 ### Inventory Product Search API
-- **API Description**:  Fetches the Inventory details based on the various filters like customPackagingInventory, orderSubType, lotManaged, warehouseId, sellable, unsellable
-- **Rest URL**:  {dns}/api/ims/v1/inventory/products
+Fetches the Inventory details based on the various filters like customPackagingInventory, orderSubType, lotManaged, warehouseId, sellable, unsellable
+- **URL**:  {dns}/api/ims/v1/inventory/products
 - **Request Type**: GET
 
 #### Query params
