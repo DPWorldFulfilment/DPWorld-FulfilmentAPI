@@ -390,14 +390,14 @@ Fetches the Inventory details based on the various filters like customPackagingI
 |searchProduct|Search by Sku, inventoryId or productName|String|Yes|Iphone|
 |sellable|Enter true if product is sellable|Boolean|No|true|
 |unsellable|Enter true if product is unsellable|Boolean|No|true|
-|warehouseId|Warehouse in which inventory is kept|String|No|IMS\_PARCEL\_NINJA\_WAREHOUSE\_1\_PARCEL\_NINJA|
+|warehouseId|Warehouse in which inventory is kept|String|No|WAREHOUSE\_UK|
 |lotManaged|Bundled product or not|Boolean|No|true|
 |orderSubType|Kitting or dekitting|String|No|KITTING/ DE\_KITTING|
 |customPackagingInventory|Product is packaged type |integer|no|1|
 
 Curl
 ```bash
-curl --location --request GET 'http://ecom-qa-ims.dpworld.com/api/ims/v1/inventory/products?searchProduct=A102-0AAF2174F2DA4994&sellable=true&unsellable=true&warehouseId=IMS_PARCEL_NINJA_WAREHOUSE_1_PARCEL_NINJA&lotManaged=false' \
+curl --location --request GET 'http://ecom-qa-ims.dpworld.com/api/ims/v1/inventory/products?searchProduct=A102-0AAF2174F2DA4994&sellable=true&unsellable=true&warehouseId=WAREHOUSE_UK&lotManaged=false' \
 --header 'Content-Type: application/json' \
 --header 'Cookie: cookiesession1=678A40EFCB896BCC71A5513E9DE2DB58'
 ```
