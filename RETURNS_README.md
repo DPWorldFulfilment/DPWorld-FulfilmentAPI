@@ -48,14 +48,13 @@ Create a return order
   "pickupFrom": {
     "id": 2584,
     "address": {
-      "zip": "2196",
-      "city": null,
+      "zip": "5804 AB",
+      "city": "Venray",
       "state": null,
       "region": null,
       "street": null,
-      "suburb": "Johannesburg",
-      "country": "South Africa",
-      "lineOne": "86 11th Street, Parkmore, Sandton",
+      "country": "Netherlands",
+      "lineOne": "Maasheseweg 87",
       "lineTwo": ""
     },
     "contact": {
@@ -137,14 +136,14 @@ Create a return order
 #### address:
 | Field                | Description                    | Data Type | Mandatory | Example                      |
 |----------------------|--------------------------------|-----------|-----------|------------------------------|
-| zip                  | ZIP code                       | String    | Yes       | "2196"                       |
-| city                 | City name                      | String    | No        | null                         |
+| zip                  | ZIP code                       | String    | Yes       | "5804 AB"                       |
+| city                 | City name                      | String    | No        | "Venray"                         |
 | state                | State name                     | String    | No        | null                         |
 | region               | Region name                    | String    | No        | null                         |
 | street               | Street name                    | String    | No        | null                         |
-| suburb               | Suburb name                    | String    | Yes       | "Johannesburg"               |
-| country              | Country name                   | String    | Yes       | "South Africa"               |
-| lineOne              | Address line 1                 | String    | Yes       | "86 11th Street, Parkmore, Sandton" |
+| suburb               | Suburb name                    | String    | No       | null               |
+| country              | Country name                   | String    | Yes       | "Netherlands"               |
+| lineOne              | Address line 1                 | String    | Yes       | "Maasheseweg 87" |
 | lineTwo              | Address line 2                 | String    | No        | ""                           |
 
 #### contact:
