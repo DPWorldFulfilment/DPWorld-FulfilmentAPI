@@ -25,8 +25,8 @@ While creating a return, users can specify the action to be taken on the returne
 | COLLECTED_BY_COURIER     | Processing, Once a return is picked up by courier.                                                                     |
 | OUT_FOR_DELIVERY         | Processing, Once a return is out for delivery by courier.                                                               |
 | DELIVERED                | Processing, Once a return is delivered by the courier.                                                                 |
-| COMPLETED                | Completed, Once a return is inbounded successfully into the Warehouse, as confirmed by PN.                             |
-| COMPLETED_WITH_VARIANCE  | Completed, Once a return is inbounded successfully into the Warehouse with Variance as confirmed by PN.               |
+| COMPLETED                | Completed, Once a return is inbounded successfully into the Warehouse, as confirmed by WMS.                             |
+| COMPLETED_WITH_VARIANCE  | Completed, Once a return is inbounded successfully into the Warehouse with Variance as confirmed by WMS.               |
 | UNRECOVERABLE            | Failed, Courier is unrecoverable as marked by the Courier.                                                              |
 | COURIER_CANCELLED        | Failed, Courier is cancelled as marked by the Courier.                                                                  |
 | FAILED_RETURN_DELIVERY   | Failed, Courier is not able to deliver to warehouse as marked by the courier.                                           |
@@ -43,7 +43,7 @@ Create a return order
   "buId": "5cb23705-2667-7",
   "rmaId": "#1007",
   "orderId": "OMS-10000011006",
-  "currency": "EURO",
+  "currency": "EUR",
   "orderType": "RETURN",
   "pickupFrom": {
     "id": 2584,
@@ -72,18 +72,18 @@ Create a return order
   },
   "customerType": "CONSUMER",
   "orderPlacedAt": 1707955200000,
-  "orderSourceId": "WAREHOUSE_UK",
+  "orderSourceId": "SFS",
   "parentOrderId": "10000010977",
-  "orderChannelId": "WAREHOUSE_UK",
+  "orderChannelId": "CL",
   "fulfillmentType": "DPW_FULFILLMENT",
   "shippingDetails": {
     "shippingType": "DPW_SHIPPING",
     "shippingOption": "CHEAPEST",
-    "fulfillmentCenter": "PN_WAREHOUSE_1_WAREHOUSE_UK"
+    "fulfillmentCenter": "WAREHOUSE_UK"
   },
   "consigneeOrderId": null,
   "fulfillmentLines": {
-    "currencyUnit": "EURO",
+    "currencyUnit": "EUR",
     "totalLineQty": 1,
     "orderLineDetails": [
       {
@@ -112,14 +112,14 @@ Create a return order
 | buId               | Business unit ID                                      | String       | Yes       | "5cb23705-2667-7"            |
 | rmaId              | Return merchandise authorization ID                   | String       | No        | "#1007"                      |
 | orderId            | Order ID                                              | String       | Yes       | "OMS-10000011006"            |
-| currency           | Currency                                              | String       | Yes       | "EURO"                        |
+| currency           | Currency                                              | String       | Yes       | "EUR"                        |
 | orderType          | Type of order (e.g., RETURN)                          | String       | Yes       | "RETURN"                     |
 | pickupFrom         | Details of the pickup location                        | Object       | Yes       | See below                    |
 | customerType       | Type of customer (e.g., CONSUMER)                    | String       | Yes       | "CONSUMER"                   |
 | orderPlacedAt      | Timestamp when the order was placed                   | Long         | Yes       | 1707955200000                |
-| orderSourceId      | Identifier for the order source                      | String       | Yes       | "WAREHOUSE_UK"               |
+| orderSourceId      | Identifier for the order source                      | String       | Yes       | "SFS"               |
 | parentOrderId      | ID of the parent order                                | String       | Yes       | "10000010977"                |
-| orderChannelId     | Identifier for the order channel                     | String       | Yes       | "WAREHOUSE_UK"               |
+| orderChannelId     | Identifier for the order channel                     | String       | Yes       | "SFS"               |
 | fulfillmentType    | Type of fulfillment                                   | String       | Yes       | "DPW_FULFILLMENT"            |
 | shippingDetails    | Details of the shipping                               | Object       | Yes       | See below                    |
 | consigneeOrderId   | ID of the consignee order                             | String       | No        | null                         |
@@ -167,12 +167,12 @@ Create a return order
 |-------------------|-------------------------------|-----------|-----------|-----------------------------------|
 | shippingType      | Type of shipping              | String    | Yes       | "DPW_SHIPPING"                   |
 | shippingOption    | Shipping option               | String    | Yes       | "CHEAPEST"                       |
-| fulfillmentCenter | Fulfillment center            | String    | Yes       | "PN_WAREHOUSE_1_WAREHOUSE_UK"    |
+| fulfillmentCenter | Fulfillment center            | String    | Yes       | "WAREHOUSE_UK"    |
 
 ### fulfillmentLines:
 | Field               | Description                               | Data Type | Mandatory | Example                      |
 |---------------------|-------------------------------------------|-----------|-----------|------------------------------|
-| currencyUnit        | Currency                                  | String    | Yes       | "EURO"                        |
+| currencyUnit        | Currency                                  | String    | Yes       | "EUR"                        |
 | totalLineQty        | Total quantity of fulfillment lines       | Integer   | Yes       | 1                            |
 | orderLineDetails    | Details of each fulfillment line          | Array     | Yes       | See below                    |
 
@@ -236,7 +236,7 @@ Create a return order
 |startDate|LocalDateTime|Filter on ordered\_at including startDate|"2024-03-06T08:48:36.643Z"|
 |endDate|LocalDateTime|Filter on ordered\_at including endDate|"2024-03-06T08:48:36.643Z"|
 |returnsStatuses|Array|List of shipment statuses|[“COMPLETED”, “PICKED”]|
-|fulfillmentCentre|Array|List of warehouses (fulfillment\_center)|["PN\_WAREHOUSE\_1\WAREHOUSE\_UK"]|
+|fulfillmentCentre|Array|List of warehouses (fulfillment\_center)|["WAREHOUSE\_UK"]|
 
 #### Response
 ```json
@@ -248,7 +248,7 @@ Create a return order
                 "orderId": "OMS-10000011006",
                 "sourceStore": "5cb23705-2667-7",
                 "orderDate": "2024-02-15T00:00:00.000+00:00",
-                "fulfillmentCentre": "PN_WAREHOUSE_1_WAREHOUSE_UK",
+                "fulfillmentCentre": "WAREHOUSE_UK",
                 "returnStatus": "DELIVERED",
                 "returnSubStatus": null,
                 "rmaId": "#1007",
@@ -261,7 +261,7 @@ Create a return order
                 "orderId": "OMS-10000010979",
                 "sourceStore": "5cb23705-2667-7",
                 "orderDate": "2024-02-14T00:00:00.000+00:00",
-                "fulfillmentCentre": "PN_WAREHOUSE_1_WAREHOUSE_UK",
+                "fulfillmentCentre": "WAREHOUSE_UK",
                 "returnStatus": "DELIVERED",
                 "returnSubStatus": null,
                 "rmaId": null,
@@ -274,7 +274,7 @@ Create a return order
                 "orderId": "OMS-10000009790",
                 "sourceStore": "5cb23705-2667-7",
                 "orderDate": "2024-01-30T00:00:00.000+00:00",
-                "fulfillmentCentre": "PN_WAREHOUSE_1_WAREHOUSE_UK",
+                "fulfillmentCentre": "WAREHOUSE_UK",
                 "returnStatus": "DELIVERED",
                 "returnSubStatus": null,
                 "rmaId": "#1003",
@@ -287,7 +287,7 @@ Create a return order
                 "orderId": "OMS-10000009688",
                 "sourceStore": "5cb23705-2667-7",
                 "orderDate": "2024-01-25T00:00:00.000+00:00",
-                "fulfillmentCentre": "PN_WAREHOUSE_1_WAREHOUSE_UK",
+                "fulfillmentCentre": "WAREHOUSE_UK",
                 "returnStatus": "CANCELLED",
                 "returnSubStatus": null,
                 "rmaId": "#1004",
@@ -300,7 +300,7 @@ Create a return order
                 "orderId": "OMS-10000009698",
                 "sourceStore": "5cb23705-2667-7",
                 "orderDate": "2024-01-25T00:00:00.000+00:00",
-                "fulfillmentCentre": "PN_WAREHOUSE_1_WAREHOUSE_UK",
+                "fulfillmentCentre": "WAREHOUSE_UK",
                 "returnStatus": "DELIVERED",
                 "returnSubStatus": null,
                 "rmaId": null,
@@ -366,7 +366,7 @@ Get a specific return order using the orderId
             "shippingType": "DPW_SHIPPING",
             "shippingOption": "CHEAPEST",
             "shippingMethod": "Super Fast",
-            "fulfillmentCenter": "Joberg, South Africa",
+            "fulfillmentCenter": "Hinckley, UK",
             "quoteId": "Q12345",
             "courierName": "FedEx"
           },
@@ -786,7 +786,7 @@ Get a specific return using the returnId of the return order
       "shippingType": "DPW_SHIPPING",
       "shippingOption": "CHEAPEST",
       "shippingMethod": "Super Fast",
-      "fulfillmentCenter": "Joberg, South Africa",
+      "fulfillmentCenter": "Hinckley, UK",
       "quoteId": "Q12345",
       "courierName": "FedEx"
     },
