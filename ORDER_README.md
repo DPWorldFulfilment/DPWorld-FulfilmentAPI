@@ -53,14 +53,14 @@ In orders, there are two possible shipment types that can be used:
 ```json
 {
   "orderType": "NEW",
-  "orderChannelId": "PARCEL_NINJA",
-  "orderSourceId": "PARCEL_NINJA",
-  "orderCreationType": "PARCEL_NINJA",
+  "orderChannelId": "CL",
+  "orderSourceId": "SFS",
+  "orderCreationType": "API",
   "buId": "2f6823d4-8dfb-5",
   "customerType": "CONSUMER",
   "fulfillmentType": "DPW_FULFILLMENT",
   "orderPlacedAt": "2024-03-01T06:11:59.865Z",
-  "currency": "ZAR",
+  "currency": "EUR",
   "orderStatus": "CREATED",
   "consigneeOrderId": "C-01",
   "consignee": {
@@ -115,12 +115,12 @@ In orders, there are two possible shipment types that can be used:
   "shippingDetails": {
     "shippingType": "DPW_SHIPPING",
     "shippingOption": "CHEAPEST",
-    "fulfillmentCenter": "PN_WAREHOUSE_1_PARCEL_NINJA",
+    "fulfillmentCenter": "WAREHOUSE-1",
     "quoteId": null
   },
   "fulfillmentLines": {
     "totalLineQty": 1,
-    "currencyUnit": "ZAR",
+    "currencyUnit": "EUR",
     "lineTotal": {
       "currencyAmount": 0
     },
@@ -237,14 +237,14 @@ In orders, there are two possible shipment types that can be used:
 |**Field**|**Description**|**Data Type**|**Mandatory**|**Example**|
 | :- | :- | :- | :- | :- |
 |orderType|<p>Type of order:<br>1\. NEW – new orders</p><p>2\. RETURN – return orders</p>|String|Yes|"NEW"|
-|orderChannelId|Identifier for the order channel.<br>Default value is CL|String|Yes|"PARCEL\_NINJA"|
-|orderSourceId|Identifier for the order source|String|Yes|"PARCEL\_NINJA"|
+|orderChannelId|Identifier for the order channel.<br>Default value is CL|String|Yes|"CL"|
+|orderSourceId|Identifier for the order source|String|Yes|"DPWorld"|
 |orderCreationType|Medium of creation for the order|String|No|"AssistedChannel"|
 |buId|Business unit ID: Unique for each seller to be provided at the time of onboarding|String|Yes|"2f6823d4-8dfb-5": |
 |customerType|<p>Type of order:<br>1\. CONSUMER: consumer order</p><p>2\. SUPPLIER: supplier order</p>|String|Yes|"CONSUMER"|
 |fulfillmentType|Type of fulfilment:<br>1\. DPW\_FULFILLMENT: DPW Warehouse - Yes, DPW Shipping - Yes<br>2\. SELLER\_FULFILLMENT: DPW Warehouse - No, DPW Shipping - No<br>3\. PICKUP\_AT\_WH: DPW Warehouse - Yes, DPW Shipping - No<br>4\. DROP\_AT\_WH DPW Warehouse - No, DPW Shipping - Yes|String|Yes|"DPW\_FULFILLMENT"|
 |orderPlacedAt|Timestamp indicating when the order was placed (UTC)|String (ISO 8601)|Yes|"2024-03-01T06:11:59.865Z"|
-|currency|Currency code|String|Yes|"ZAR"|
+|currency|Currency code|String|Yes|"EUR"|
 |consigneeOrderId|Consignee order ID|String|No|"C-01"|
 #### Consignee Details
 
@@ -301,7 +301,7 @@ In orders, there are two possible shipment types that can be used:
 |                  | CHEAPEST                           |           |           |                             |
 |                  | FASTEST                            |           |           |                             |
 |                  | RESPECTIVE_COURIERS                |           |           |                             |
-| fulfillmentCenter| Fulfillment center                   | String    | Yes       | "PN_WAREHOUSE_1_PARCEL_NINJA" |
+| fulfillmentCenter| Fulfillment center                   | String    | Yes       | "WAREHOUSE_UK" |
 
 
 #### Fulfillment Lines
@@ -309,7 +309,7 @@ In orders, there are two possible shipment types that can be used:
 |**Field**|**Description**|**Data Type**|**Mandatory**|**Example**|
 | :-: | :-: | :-: | :-: | :-: |
 |totalLineQty|Total quantity of fulfillment lines|Integer|Yes|1|
-|currencyUnit|Currency unit for fulfillment lines|String|Yes|"ZAR"|
+|currencyUnit|Currency unit for fulfillment lines|String|Yes|"EUR"|
 |lineTotal|Total amount for fulfillment lines|Object|Yes|See nested fields|
 |orderLineDetails|Details of individual order lines|Array|Yes|See nested fields|
 |additionalAttributes|Additional attributes for fulfillment lines|Array|No|Empty array|
@@ -449,7 +449,7 @@ Gives list of orders based on the requested filters. Filtering is based on the f
 |accounts|Array|List of customer\_accound\_id|Null values not included in response|[“41a1c66d-f989-5”]|
 |sourceStore|Array|<p>List of order\_creation\_type,</p><p>SFS or 3PE</p>|Null values included in response|["SFS\_PORTAL"]|
 |paymentOptions|Array|<p>List of payment\_type</p><p>Prepaid or cashOnDelivery</p>|Null values included in response|[“PRE\_PAID”]|
-|fulfillmentCenter|Array|List of warehouses (fulfillment\_center)|Null values included in response|["PN\_WAREHOUSE\_1\_PARCEL\_NINJA"]|
+|fulfillmentCenter|Array|List of warehouses (fulfillment\_center)|Null values included in response|["WAREHOUSE\_UK"]|
 |consumerType|Array|List of consumer\_type|Null values included in response|["CONSUMER"]|
 
 #### Sample Query Parameters
@@ -574,9 +574,6 @@ limit=15&page=0&direction=DESC&sortOn=orderDate
   ],
   "carrierService": [],
   "fulfillmentCentre": [
-    "THREE_PE_WAREHOUSE_1",
-    "IMS_DEFAULT",
-    "IMS_PARCEL_NINJA_WAREHOUSE_1_PARCEL_NINJA",
     "148796_ORACLE"
   ],
   "tabSelected": "All",
@@ -593,7 +590,7 @@ limit=15&page=0&direction=DESC&sortOn=orderDate
 |accounts|Array|List of  customer\_accound\_id|[“41a1c66d-f989-5”]|
 |sourceStore|Array|List of order\_creation\_type|["SFS\_PORTAL"]|
 |shipmentOption|Array|List of shipment\_option|[“CHEAPEST”]|
-|fulfillmentCentre|Array|List of warehouses (fulfillment\_center)|["PN\_WAREHOUSE\_1\_PARCEL\_NINJA"]|
+|fulfillmentCentre|Array|List of warehouses (fulfillment\_center)|["WAREHOUSE\_1"]|
 |consumerType|Array|List of consumer\_type|["CONSUMER"]|
 |shipmentType|Array|List of shipment\_type|["DPW\_SHIPPING”, “WAREHOUSE\_PICKUP”]|
 
@@ -605,9 +602,9 @@ limit=15&page=0&direction=DESC&sortOn=orderDate
       {
         "shipmentId": "SHP-10000002297",
         "orderId": "OMS-10000003157",
-        "sourceStore": "PARCEL_NINJA",
+        "sourceStore": "DPWFulfillment",
         "orderDate": "2024-02-12T06:59:18.000+00:00",
-        "fulfillmentCentre": "IMS_PARCEL_NINJA_WAREHOUSE_1_PARCEL_NINJA",
+        "fulfillmentCentre": "WAREHOUSE_UK",
         "shipmentStatus": "AWAITING_STOCK",
         "shipmentSubStatus": "Stock unavailable",
         "outboundId": null,
@@ -616,9 +613,9 @@ limit=15&page=0&direction=DESC&sortOn=orderDate
       {
         "shipmentId": "SHP-10000002284",
         "orderId": "OMS-10000003144",
-        "sourceStore": "PARCEL_NINJA",
+        "sourceStore": "DPWFulfillment",
         "orderDate": "2024-02-05T10:50:32.000+00:00",
-        "fulfillmentCentre": "IMS_PARCEL_NINJA_WAREHOUSE_1_PARCEL_NINJA",
+        "fulfillmentCentre": "WAREHOUSE_UK",
         "shipmentStatus": "AWAITING_STOCK",
         "shipmentSubStatus": "Stock unavailable",
         "outboundId": null,
@@ -627,9 +624,9 @@ limit=15&page=0&direction=DESC&sortOn=orderDate
       {
         "shipmentId": "SHP-10000002283",
         "orderId": "OMS-10000003143",
-        "sourceStore": "PARCEL_NINJA",
+        "sourceStore": "DPWFulfillment",
         "orderDate": "2024-02-05T10:30:04.000+00:00",
-        "fulfillmentCentre": "IMS_PARCEL_NINJA_WAREHOUSE_1_PARCEL_NINJA",
+        "fulfillmentCentre": "WAREHOUSE_UK",
         "shipmentStatus": "IN_VALIDATION",
         "shipmentSubStatus": null,
         "outboundId": "62534169",
@@ -638,9 +635,9 @@ limit=15&page=0&direction=DESC&sortOn=orderDate
       {
         "shipmentId": "SHP-10000002272",
         "orderId": "OMS-10000003135",
-        "sourceStore": "PARCEL_NINJA",
+        "sourceStore": "DPWFulfillment",
         "orderDate": "2024-02-01T13:25:02.000+00:00",
-        "fulfillmentCentre": "IMS_PARCEL_NINJA_WAREHOUSE_1_PARCEL_NINJA",
+        "fulfillmentCentre": "WAREHOUSE_UK",
         "shipmentStatus": "CANCELLED",
         "shipmentSubStatus": null,
         "outboundId": null,
@@ -668,7 +665,7 @@ limit=15&page=0&direction=DESC&sortOn=orderDate
 |orderDate|Date|ordered\_at|"2023-10-26T13:42:56Z”|
 |shipmentStatus|String|shipment\_status|"ON\_HOLD"|
 |shipmentSubStatus|String|shipment\_sub\_status|"Address validation for failed"|
-|fulfillmentCentre|Boolean|fulfillment\_center|"PN\_WAREHOUSE\_1\_PARCEL\_NINJA"|
+|fulfillmentCentre|Boolean|fulfillment\_center|"WAREHOUSE\_UK"|
 |consigneeOrderId|String|consignee\_order\_id|"5803194155160"|
 |orderId|String|order\_id|"OMS-10000000019"|
 |outboundId|String|outbound\_id|“62395838”|
