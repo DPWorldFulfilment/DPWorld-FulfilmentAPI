@@ -21,14 +21,14 @@ This API creates an Inbound Order.
 |--------------------|-------------------------------------------------|-----------|-----------|------------------|
 | orderChannelId     | Identifier for the order channel.               | String    | Yes       | CL               |
 | orderSourceId      | Identifier for the order source.                | String    | Yes       | WAREHOUSE_UK     |
-| buId               | Business unit ID: Unique for each seller.       | String    | Yes       | WAREHOUSE_UK     |
+| buId               | Business unit ID: Unique for each seller.       | String    | Yes       | 13255     |
 | orderType          | Order Type (Accepts only “RECEIVING_ORDER”).    | String    | Yes       | RECEIVING_ORDER  |
 | subOrderType       | Defines type of inbound.                        | String    | Yes       | DEFAULT/RTO/RVP  |
 | consigneeOrderId   | To be provided by the user.                     | String    | No        | "20243544"       |
 | orderPlacedAt      | Date of order placed (YYYY-MM-DD).              | String    | Yes       | "2024-01-23"     |
 | fulfillmentType    | It defines the flow of inbound.                 | String    | Yes       | C2W/S2W/W2W      |
 | currency           | Currency (USD, EUR, AED).                       | String    | Yes       | USD, EUR, AED    |
-| shippingMethod     | Type of shipping the user wants.                | String    | Yes       | WAREHOUSE_UK_SHIPPING, DROP_AT_WAREHOUSE |
+| shippingMethod     | Type of shipping the user wants.                | String    | Yes       | WAREHOUSE_SHIPPING, DROP_AT_WAREHOUSE |
 | shippingOptions    | Additional option over shipping method.         | String    | Yes       | NA, CHEAPEST, FASTEST |
 |consignorDetails |This field contains all the information related to the seller or user who is requesting inbound| Object | Yes ||
 |warehouseInfo| This field contains warehouseId for which inbound is created| Object | Yes ||
@@ -40,9 +40,9 @@ This API creates an Inbound Order.
 
 ```json
 {
-  "orderChannelId": "WAREHOUSE_UK",
-  "orderSourceId": "WAREHOUSE_UK",
-  "buId": "WAREHOUSE_UK",
+  "orderChannelId": "CL",
+  "orderSourceId": "SFS",
+  "buId": "1234",
   "orderType": "RECEIVING_ORDER",
   "subOrderType": "DEFAULT",
   "consigneeOrderId": "999999001",
@@ -83,8 +83,8 @@ This API creates an Inbound Order.
     }
   },
   "warehouseInfo": {
-    "warehouseId": "IMS_WAREHOUSE_UK_WAREHOUSE_1_WAREHOUSE_UK",
-    "labelName": "WAREHOUSE_UK_WAREHOUSE"
+    "warehouseId": "_WAREHOUSE_UK",
+    "labelName": "Hinckley, UK"
   },
   "lineDates": {
     "pickUpDate": "2024-12-30",
@@ -271,7 +271,7 @@ curl --location 'localhost:8080/api/ims/v1/ro/receiving-order/RO-11000001314' \
   "subOrderType": "RTO",
   "consigneeOrderId": "999999001",
   "sellerId": "4cf19e27-3fe0-5",
-  "warehouseId": "IMS_WAREHOUSE_UK_WAREHOUSE_1_WAREHOUSE_UK",
+  "warehouseId": "WAREHOUSE_UK",
   "fulfillmentType": "C2W",
   "shippingMethod": "DROP_AT_WAREHOUSE",
   "carrierMethod": "NA",
