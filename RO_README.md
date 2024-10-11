@@ -20,29 +20,29 @@ This API creates an Inbound Order.
 | Field              | Description                                     | Data Type | Mandatory | Example          |
 |--------------------|-------------------------------------------------|-----------|-----------|------------------|
 | orderChannelId     | Identifier for the order channel.               | String    | Yes       | CL               |
-| orderSourceId      | Identifier for the order source.                | String    | Yes       | PARCEL_NINJA     |
-| buId               | Business unit ID: Unique for each seller.       | String    | Yes       | PARCEL_NINJA     |
+| orderSourceId      | Identifier for the order source.                | String    | Yes       | WAREHOUSE_UK     |
+| buId               | Business unit ID: Unique for each seller.       | String    | Yes       | WAREHOUSE_UK     |
 | orderType          | Order Type (Accepts only “RECEIVING_ORDER”).    | String    | Yes       | RECEIVING_ORDER  |
 | subOrderType       | Defines type of inbound.                        | String    | Yes       | DEFAULT/RTO/RVP  |
 | consigneeOrderId   | To be provided by the user.                     | String    | No        | "20243544"       |
 | orderPlacedAt      | Date of order placed (YYYY-MM-DD).              | String    | Yes       | "2024-01-23"     |
 | fulfillmentType    | It defines the flow of inbound.                 | String    | Yes       | C2W/S2W/W2W      |
-| currency           | Currency (USD, ZAR, AED).                       | String    | Yes       | USD, ZAR, AED    |
-| shippingMethod     | Type of shipping the user wants.                | String    | Yes       | PARCEL_NINJA_SHIPPING, DROP_AT_WAREHOUSE |
+| currency           | Currency (USD, EUR, AED).                       | String    | Yes       | USD, EUR, AED    |
+| shippingMethod     | Type of shipping the user wants.                | String    | Yes       | WAREHOUSE_UK_SHIPPING, DROP_AT_WAREHOUSE |
 | shippingOptions    | Additional option over shipping method.         | String    | Yes       | NA, CHEAPEST, FASTEST |
 |consignorDetails |This field contains all the information related to the seller or user who is requesting inbound| Object | Yes ||
 |warehouseInfo| This field contains warehouseId for which inbound is created| Object | Yes ||
-|parcelDetails| This field contains parcel details| Object | Yes ||
+|warehouseDetails| This field contains warehouse details| Object | Yes ||
 |fulfillmentLines| Contains items info| Object | Yes ||
 |additionalAttributes| Some additional data can be sent in this object| Object | Yes ||
 |lineDates| This field contains dates related fields| Object | Yes ||
-|boxInfo| Contains box details if a user wants to give the configuration of boxes. (Yes, if parcelConfigs selected is of parcel type)| Object | Yes ||
+|boxInfo| Contains box details if a user wants to give the configuration of boxes. (Yes, if warehouseConfigs selected is of warehouse type)| Object | Yes ||
 
 ```json
 {
-  "orderChannelId": "PARCEL_NINJA",
-  "orderSourceId": "PARCEL_NINJA",
-  "buId": "PARCEL_NINJA",
+  "orderChannelId": "WAREHOUSE_UK",
+  "orderSourceId": "WAREHOUSE_UK",
+  "buId": "WAREHOUSE_UK",
   "orderType": "RECEIVING_ORDER",
   "subOrderType": "DEFAULT",
   "consigneeOrderId": "999999001",
@@ -83,15 +83,15 @@ This API creates an Inbound Order.
     }
   },
   "warehouseInfo": {
-    "warehouseId": "IMS_PARCEL_NINJA_WAREHOUSE_1_PARCEL_NINJA",
-    "labelName": "PARCEL_NINJA_WAREHOUSE"
+    "warehouseId": "IMS_WAREHOUSE_UK_WAREHOUSE_1_WAREHOUSE_UK",
+    "labelName": "WAREHOUSE_UK_WAREHOUSE"
   },
   "lineDates": {
     "pickUpDate": "2024-12-30",
     "expectedShipDate": "2024-12-30"
   },
-  "parcelDetails": {
-    "parcelConfigs": [
+  "warehouseDetails": {
+    "warehouseConfigs": [
       {
         "unitOfMeasure": "Boxes",
         "measurementValue": "2"
@@ -165,14 +165,14 @@ This API creates an Inbound Order.
       "boxConfig": [
         {
           "fulfillmentLineId": "1",
-          "parcelConfig": {
+          "warehouseConfig": {
             "unitOfMeasure": "EA",
             "measurementValue": "15"
           }
         },
         {
           "fulfillmentLineId": "1",
-          "parcelConfig": {
+          "warehouseConfig": {
             "unitOfMeasure": "EA",
             "measurementValue": "15"
           }
@@ -271,7 +271,7 @@ curl --location 'localhost:8080/api/ims/v1/ro/receiving-order/RO-11000001314' \
   "subOrderType": "RTO",
   "consigneeOrderId": "999999001",
   "sellerId": "4cf19e27-3fe0-5",
-  "warehouseId": "IMS_PARCEL_NINJA_WAREHOUSE_1_PARCEL_NINJA",
+  "warehouseId": "IMS_WAREHOUSE_UK_WAREHOUSE_1_WAREHOUSE_UK",
   "fulfillmentType": "C2W",
   "shippingMethod": "DROP_AT_WAREHOUSE",
   "carrierMethod": "NA",
@@ -347,7 +347,7 @@ curl --location 'localhost:8080/api/ims/v1/ro/receiving-order/RO-11000001314' \
       }
     ]
   },
-  "parcelDetails": [
+  "warehouseDetails": [
     {
       "measurementValue": "60ft * 40ft",
       "quantityUOM": "container",
@@ -538,7 +538,7 @@ curl --location 'localhost:8080/api/ims/v1/ro/receiving-orders?limit=2&page=1&so
       "subOrderType": "DEFAULT",
       "orderStatus": "AWAITING_ARRIVAL",
       "sellerId": "4cf19e27-3fe0-5",
-      "fulfillmentCenter": "Linbro - South Africa",
+      "fulfillmentCenter": "Hinckley",
       "createdOn": "2024-03-06T11:06:01.000+00:00",
       "manifestLink": "https://stsfsakamaipreprod.blob.core.windows.net/static-content-preprod-sfs/pdf/MANIFEST/uploaded/RO-11000001742.pdf"
     },
@@ -617,7 +617,7 @@ This API is used to create draft inbounds which can then be used to create inbou
   "sellerId": "4cf19e27-3fe0-5",
   "warehouseId": "IMS_DEFAULT",
   "orderType": "DRAFT_RECEIVING_ORDER",
-  "draftPayload": "{\"consigneeOrderId\":\"\",\"fulfillmentType\":\"S2W\",\"shippingMethod\":\"DROP_AT_WAREHOUSE\",\"shippingOptions\":null,\"carrierMethod\":\"\",\"currency\":\"USD\",\"consignorDetails\":{\"consignorId\":\"ee00c1d4-9c25-5\",\"merchantTag\":null,\"pickUpInfo\":{\"customerAddressId\":null,\"contact\":{\"name\":{\"firstName\":\"ramanMechant 2\",\"lastName\":\"Warner\",\"middleName\":null,\"nickName\":null},\"phone\":\"R5wJgNioSTX2qFQlEyub0g\",\"email\":\"nike.merchant@maildrop.cc\"},\"address\":{\"unitNumber\":null,\"lineOne\":\"23423541\",\"lineTwo\":\"PEOPLES COLONY\",\"geographicLocation\":null,\"street\":\"RAJAN\",\"poBox\":null,\"city\":\"Zastron\",\"country\":\"South Africa\",\"zip\":\"9950\",\"region\":\"Free State\",\"addressType\":\"PICKUP\",\"suburb\":\"Nuwe Lokasie\",\"suburbId\":null,\"orderType\":null}}},\"warehouseInfo\":{\"warehouseId\":\"149091_ORACLE\",\"labelName\":null,\"name\":null,\"providerName\":null},\"parcelDetails\":{\"parcelConfigs\":[{\"unitOfMeasure\":\"container\",\"measurementValue\":\"40 feet\"}],\"attributeData\":[{\"attributeName\":\"multipleSkuPerBox\",\"attributeValue\":\"true\"},{\"attributeName\":\"oneSkuPerBox\",\"attributeValue\":\"false\"}]},\"lineDates\":{\"expectedShipDate\":\"2024-03-07\"},\"fulfillmentLines\":{\"totalLineQty\":10,\"orderLineDetails\":[{\"fulfillmentLineId\":1,\"refId\":null,\"itemDetails\":{\"inventoryId\":\"A126-F200229620C31629\",\"barcode\":\"TESTVENREY\",\"weight\":null,\"volume\":null,\"action\":null,\"quantity\":{\"orderQty\":10,\"unitOfMeasure\":\"EA\",\"measurementValue\":\"10\"},\"packingConfig\":{\"labeling\":false,\"bubbleWrapping\":false,\"bagging\":false,\"bubbleMail\":false},\"shnId\":null,\"issue\":null,\"sellerAction\":null}}]},\"boxInfo\":null,\"additionalAttributes\":[{\"attributeType\":\"ORDER_ATTRIBUTES\",\"attributeData\":[{\"attributeName\":\"priorityInbound\",\"attributeValue\":\"false\"}]}]}"
+  "draftPayload": "{\"consigneeOrderId\":\"\",\"fulfillmentType\":\"S2W\",\"shippingMethod\":\"DROP_AT_WAREHOUSE\",\"shippingOptions\":null,\"carrierMethod\":\"\",\"currency\":\"USD\",\"consignorDetails\":{\"consignorId\":\"ee00c1d4-9c25-5\",\"merchantTag\":null,\"pickUpInfo\":{\"customerAddressId\":null,\"contact\":{\"name\":{\"firstName\":\"ramanMechant 2\",\"lastName\":\"Warner\",\"middleName\":null,\"nickName\":null},\"phone\":\"R5wJgNioSTX2qFQlEyub0g\",\"email\":\"nike.merchant@maildrop.cc\"},\"address\":{\"unitNumber\":null,\"lineOne\":\"23423541\",\"lineTwo\":\"PEOPLES COLONY\",\"geographicLocation\":null,\"street\":\"RAJAN\",\"poBox\":null,\"city\":\"Zastron\",\"country\":\"South Africa\",\"zip\":\"9950\",\"region\":\"Free State\",\"addressType\":\"PICKUP\",\"suburb\":\"Nuwe Lokasie\",\"suburbId\":null,\"orderType\":null}}},\"warehouseInfo\":{\"warehouseId\":\"149091_ORACLE\",\"labelName\":null,\"name\":null,\"providerName\":null},\"warehouseDetails\":{\"warehouseConfigs\":[{\"unitOfMeasure\":\"container\",\"measurementValue\":\"40 feet\"}],\"attributeData\":[{\"attributeName\":\"multipleSkuPerBox\",\"attributeValue\":\"true\"},{\"attributeName\":\"oneSkuPerBox\",\"attributeValue\":\"false\"}]},\"lineDates\":{\"expectedShipDate\":\"2024-03-07\"},\"fulfillmentLines\":{\"totalLineQty\":10,\"orderLineDetails\":[{\"fulfillmentLineId\":1,\"refId\":null,\"itemDetails\":{\"inventoryId\":\"A126-F200229620C31629\",\"barcode\":\"TESTVENREY\",\"weight\":null,\"volume\":null,\"action\":null,\"quantity\":{\"orderQty\":10,\"unitOfMeasure\":\"EA\",\"measurementValue\":\"10\"},\"packingConfig\":{\"labeling\":false,\"bubbleWrapping\":false,\"bagging\":false,\"bubbleMail\":false},\"shnId\":null,\"issue\":null,\"sellerAction\":null}}]},\"boxInfo\":null,\"additionalAttributes\":[{\"attributeType\":\"ORDER_ATTRIBUTES\",\"attributeData\":[{\"attributeName\":\"priorityInbound\",\"attributeValue\":\"false\"}]}]}"
 }
 ```
 
@@ -638,7 +638,7 @@ This API is used to create draft inbounds which can then be used to create inbou
   "createdOn": "2024-03-07T08:04:59.004+00:00",
   "updatedAt": "2024-03-07T08:04:59.004+00:00",
   "poNbr": null,
-  "fulfillmentCenter": "PARCEL_NINJA_WAREHOUSE TEST 3",
+  "fulfillmentCenter": "WAREHOUSE_UK_WAREHOUSE TEST 3",
   "warehouseId": "IMS_DEFAULT",
   "orderStatus": "DRAFT",
   "subOrderType": "DEFAULT",
@@ -693,7 +693,7 @@ This API is used to update draft inbounds that was already created
   "sellerId": "M1233",
   "warehouseId": "IMS_DEFAULT",
   "orderType": "DRAFT_RECEIVING_ORDER",
-  "draftPayload": "{\"consigneeOrderId\":\"\",\"fulfillmentType\":\"S2W\",\"shippingMethod\":\"DROP_AT_WAREHOUSE\",\"shippingOptions\":null,\"carrierMethod\":\"\",\"currency\":\"USD\",\"consignorDetails\":{\"consignorId\":\"ee00c1d4-9c25-5\",\"merchantTag\":null,\"pickUpInfo\":{\"customerAddressId\":null,\"contact\":{\"name\":{\"firstName\":\"ramanMechant 2\",\"lastName\":\"Warner\",\"middleName\":null,\"nickName\":null},\"phone\":\"R5wJgNioSTX2qFQlEyub0g\",\"email\":\"nike.merchant@maildrop.cc\"},\"address\":{\"unitNumber\":null,\"lineOne\":\"23423541\",\"lineTwo\":\"PEOPLES COLONY\",\"geographicLocation\":null,\"street\":\"RAJAN\",\"poBox\":null,\"city\":\"Zastron\",\"country\":\"South Africa\",\"zip\":\"9950\",\"region\":\"Free State\",\"addressType\":\"PICKUP\",\"suburb\":\"Nuwe Lokasie\",\"suburbId\":null,\"orderType\":null}}},\"warehouseInfo\":{\"warehouseId\":\"149091_ORACLE\",\"labelName\":null,\"name\":null,\"providerName\":null},\"parcelDetails\":{\"parcelConfigs\":[{\"unitOfMeasure\":\"container\",\"measurementValue\":\"40 feet\"}],\"attributeData\":[{\"attributeName\":\"multipleSkuPerBox\",\"attributeValue\":\"true\"},{\"attributeName\":\"oneSkuPerBox\",\"attributeValue\":\"false\"}]},\"lineDates\":{\"expectedShipDate\":\"2024-03-07\"},\"fulfillmentLines\":{\"totalLineQty\":10,\"orderLineDetails\":[{\"fulfillmentLineId\":1,\"refId\":null,\"itemDetails\":{\"inventoryId\":\"A126-F200229620C31629\",\"barcode\":\"TESTVENREY\",\"weight\":null,\"volume\":null,\"action\":null,\"quantity\":{\"orderQty\":10,\"unitOfMeasure\":\"EA\",\"measurementValue\":\"10\"},\"packingConfig\":{\"labeling\":false,\"bubbleWrapping\":false,\"bagging\":false,\"bubbleMail\":false},\"shnId\":null,\"issue\":null,\"sellerAction\":null}}]},\"boxInfo\":null,\"additionalAttributes\":[{\"attributeType\":\"ORDER_ATTRIBUTES\",\"attributeData\":[{\"attributeName\":\"priorityInbound\",\"attributeValue\":\"false\"}]}]}"
+  "draftPayload": "{\"consigneeOrderId\":\"\",\"fulfillmentType\":\"S2W\",\"shippingMethod\":\"DROP_AT_WAREHOUSE\",\"shippingOptions\":null,\"carrierMethod\":\"\",\"currency\":\"USD\",\"consignorDetails\":{\"consignorId\":\"ee00c1d4-9c25-5\",\"merchantTag\":null,\"pickUpInfo\":{\"customerAddressId\":null,\"contact\":{\"name\":{\"firstName\":\"ramanMechant 2\",\"lastName\":\"Warner\",\"middleName\":null,\"nickName\":null},\"phone\":\"R5wJgNioSTX2qFQlEyub0g\",\"email\":\"nike.merchant@maildrop.cc\"},\"address\":{\"unitNumber\":null,\"lineOne\":\"23423541\",\"lineTwo\":\"PEOPLES COLONY\",\"geographicLocation\":null,\"street\":\"RAJAN\",\"poBox\":null,\"city\":\"Zastron\",\"country\":\"South Africa\",\"zip\":\"9950\",\"region\":\"Free State\",\"addressType\":\"PICKUP\",\"suburb\":\"Nuwe Lokasie\",\"suburbId\":null,\"orderType\":null}}},\"warehouseInfo\":{\"warehouseId\":\"149091_ORACLE\",\"labelName\":null,\"name\":null,\"providerName\":null},\"warehouseDetails\":{\"warehouseConfigs\":[{\"unitOfMeasure\":\"container\",\"measurementValue\":\"40 feet\"}],\"attributeData\":[{\"attributeName\":\"multipleSkuPerBox\",\"attributeValue\":\"true\"},{\"attributeName\":\"oneSkuPerBox\",\"attributeValue\":\"false\"}]},\"lineDates\":{\"expectedShipDate\":\"2024-03-07\"},\"fulfillmentLines\":{\"totalLineQty\":10,\"orderLineDetails\":[{\"fulfillmentLineId\":1,\"refId\":null,\"itemDetails\":{\"inventoryId\":\"A126-F200229620C31629\",\"barcode\":\"TESTVENREY\",\"weight\":null,\"volume\":null,\"action\":null,\"quantity\":{\"orderQty\":10,\"unitOfMeasure\":\"EA\",\"measurementValue\":\"10\"},\"packingConfig\":{\"labeling\":false,\"bubbleWrapping\":false,\"bagging\":false,\"bubbleMail\":false},\"shnId\":null,\"issue\":null,\"sellerAction\":null}}]},\"boxInfo\":null,\"additionalAttributes\":[{\"attributeType\":\"ORDER_ATTRIBUTES\",\"attributeData\":[{\"attributeName\":\"priorityInbound\",\"attributeValue\":\"false\"}]}]}"
 }
 ```
 
@@ -714,7 +714,7 @@ This API is used to update draft inbounds that was already created
   "createdOn": "2024-03-07T08:04:59.004+00:00",
   "updatedAt": "2024-03-07T08:04:59.004+00:00",
   "poNbr": null,
-  "fulfillmentCenter": "PARCEL_NINJA_WAREHOUSE TEST 3",
+  "fulfillmentCenter": "WAREHOUSE_UK_WAREHOUSE TEST 3",
   "warehouseId": "IMS_DEFAULT",
   "orderStatus": "DRAFT",
   "subOrderType": "DEFAULT",
@@ -780,10 +780,10 @@ curl --location 'localhost:8080/api/ims/v1/ro/draft-order/DRAFT-RO-11000001003?s
   "sellerId": "4cf19e27-3fe0-5",
   "createdAt": "2023-11-02T12:33:55.000+00:00",
   "updatedAt": "2023-12-04T07:47:23.000+00:00",
-  "fulfillmentCenter": "Linbro - South Africa",
-  "warehouseId": "IMS_PARCEL_NINJA_WAREHOUSE_1_PARCEL_NINJA",
+  "fulfillmentCenter": "Hinckley",
+  "warehouseId": "IMS_WAREHOUSE_UK_WAREHOUSE_1_WAREHOUSE_UK",
   "status": "CREATED",
-  "draftPayload": "{\"consigneeOrderId\":\"\",\"fulfillmentType\":\"S2W\",\"shippingMethod\":\"DROP_AT_WAREHOUSE\",\"shippingOptions\":null,\"carrierMethod\":\"\",\"currency\":\"USD\",\"consignorDetails\":{\"consignorId\":\"ee00c1d4-9c25-5\",\"merchantTag\":null,\"pickUpInfo\":{\"customerAddressId\":null,\"contact\":{\"name\":{\"firstName\":\"ramanMechant 2\",\"lastName\":\"Warner\",\"middleName\":null,\"nickName\":null},\"phone\":\"R5wJgNioSTX2qFQlEyub0g\",\"email\":\"nike.merchant@maildrop.cc\"},\"address\":{\"unitNumber\":null,\"lineOne\":\"23423541\",\"lineTwo\":\"PEOPLES COLONY\",\"geographicLocation\":null,\"street\":\"RAJAN\",\"poBox\":null,\"city\":\"Zastron\",\"country\":\"South Africa\",\"zip\":\"9950\",\"region\":\"Free State\",\"addressType\":\"PICKUP\",\"suburb\":\"Nuwe Lokasie\",\"suburbId\":null,\"orderType\":null}}},\"warehouseInfo\":{\"warehouseId\":\"149091_ORACLE\",\"labelName\":null,\"name\":null,\"providerName\":null},\"parcelDetails\":{\"parcelConfigs\":[{\"unitOfMeasure\":\"container\",\"measurementValue\":\"40 feet\"}],\"attributeData\":[{\"attributeName\":\"multipleSkuPerBox\",\"attributeValue\":\"true\"},{\"attributeName\":\"oneSkuPerBox\",\"attributeValue\":\"false\"}]},\"lineDates\":{\"expectedShipDate\":\"2024-03-07\"},\"fulfillmentLines\":{\"totalLineQty\":10,\"orderLineDetails\":[{\"fulfillmentLineId\":1,\"refId\":null,\"itemDetails\":{\"inventoryId\":\"A126-F200229620C31629\",\"barcode\":\"TESTVENREY\",\"weight\":null,\"volume\":null,\"action\":null,\"quantity\":{\"orderQty\":10,\"unitOfMeasure\":\"EA\",\"measurementValue\":\"10\"},\"packingConfig\":{\"labeling\":false,\"bubbleWrapping\":false,\"bagging\":false,\"bubbleMail\":false},\"shnId\":null,\"issue\":null,\"sellerAction\":null}}]},\"boxInfo\":null,\"additionalAttributes\":[{\"attributeType\":\"ORDER_ATTRIBUTES\",\"attributeData\":[{\"attributeName\":\"priorityInbound\",\"attributeValue\":\"false\"}]}]}"
+  "draftPayload": "{\"consigneeOrderId\":\"\",\"fulfillmentType\":\"S2W\",\"shippingMethod\":\"DROP_AT_WAREHOUSE\",\"shippingOptions\":null,\"carrierMethod\":\"\",\"currency\":\"USD\",\"consignorDetails\":{\"consignorId\":\"ee00c1d4-9c25-5\",\"merchantTag\":null,\"pickUpInfo\":{\"customerAddressId\":null,\"contact\":{\"name\":{\"firstName\":\"ramanMechant 2\",\"lastName\":\"Warner\",\"middleName\":null,\"nickName\":null},\"phone\":\"R5wJgNioSTX2qFQlEyub0g\",\"email\":\"nike.merchant@maildrop.cc\"},\"address\":{\"unitNumber\":null,\"lineOne\":\"23423541\",\"lineTwo\":\"PEOPLES COLONY\",\"geographicLocation\":null,\"street\":\"RAJAN\",\"poBox\":null,\"city\":\"Zastron\",\"country\":\"South Africa\",\"zip\":\"9950\",\"region\":\"Free State\",\"addressType\":\"PICKUP\",\"suburb\":\"Nuwe Lokasie\",\"suburbId\":null,\"orderType\":null}}},\"warehouseInfo\":{\"warehouseId\":\"149091_ORACLE\",\"labelName\":null,\"name\":null,\"providerName\":null},\"warehouseDetails\":{\"warehouseConfigs\":[{\"unitOfMeasure\":\"container\",\"measurementValue\":\"40 feet\"}],\"attributeData\":[{\"attributeName\":\"multipleSkuPerBox\",\"attributeValue\":\"true\"},{\"attributeName\":\"oneSkuPerBox\",\"attributeValue\":\"false\"}]},\"lineDates\":{\"expectedShipDate\":\"2024-03-07\"},\"fulfillmentLines\":{\"totalLineQty\":10,\"orderLineDetails\":[{\"fulfillmentLineId\":1,\"refId\":null,\"itemDetails\":{\"inventoryId\":\"A126-F200229620C31629\",\"barcode\":\"TESTVENREY\",\"weight\":null,\"volume\":null,\"action\":null,\"quantity\":{\"orderQty\":10,\"unitOfMeasure\":\"EA\",\"measurementValue\":\"10\"},\"packingConfig\":{\"labeling\":false,\"bubbleWrapping\":false,\"bagging\":false,\"bubbleMail\":false},\"shnId\":null,\"issue\":null,\"sellerAction\":null}}]},\"boxInfo\":null,\"additionalAttributes\":[{\"attributeType\":\"ORDER_ATTRIBUTES\",\"attributeData\":[{\"attributeName\":\"priorityInbound\",\"attributeValue\":\"false\"}]}]}"
 }
 ```
 
