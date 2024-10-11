@@ -115,7 +115,7 @@ In orders, there are two possible shipment types that can be used:
   "shippingDetails": {
     "shippingType": "DPW_SHIPPING",
     "shippingOption": "CHEAPEST",
-    "fulfillmentCenter": "WAREHOUSE-1",
+    "fulfillmentCenter": "WAREHOUSE_UK",
     "quoteId": null
   },
   "fulfillmentLines": {
