@@ -496,7 +496,7 @@ curl --location --request PUT '{dns}/api/ims/v1/products' \
 --data '{
     "merchantId": "0541d94f-d590-5",
     "inventoryId": "A024-C432D0C80D33920F",
-    "channelId": "PARCEL_NINJA",
+    "channelId": "WAREHOUSE_UK",
     "productUpdateBaseDetails": {
         "name": "CM1052A NAVY 4XL BUTTON-UP PJ SET WITH PIPING",
         "status": true,
@@ -505,13 +505,13 @@ curl --location --request PUT '{dns}/api/ims/v1/products' \
             "id": 6,
             "name": "Fashion",
             "parentCategoryId": 0,
-            "channelId": "PARCEL_NINJA"
+            "channelId": "WAREHOUSE_UK"
         },
         "vertical": {
             "id": 101,
             "name": "Men'\''s Clothing",
             "parentCategoryId": 6,
-            "channelId": "PARCEL_NINJA"
+            "channelId": "WAREHOUSE_UK"
         }
     },
     "productUpdateFulfillmentDetails": {
@@ -743,7 +743,7 @@ A bundle is set of different SKUs clubbed together. Inventory of all child SKUs 
 {
   "merchantId": "2f6823d4-8dfb-5",
   "mergeOrigin": "B291-E8A4E4F8C7D0E283",
-  "channelId": "PARCEL_NINJA",
+  "channelId": "WAREHOUSE_UK",
   "inventoryInfoList": [
     {
       "inventoryId": "B291-F55D039CE4EF4EEE",
@@ -762,7 +762,7 @@ A bundle is set of different SKUs clubbed together. Inventory of all child SKUs 
 | :- | :- | :- | :- | :- |
 |merchantId|sellerId|String|Y|2f6823d4-8dfb-5|
 |mergeOrigin|Parent inventory to be made into bundle product|String|Y|B291-E8A4E4F8C7D0E283|
-|channelId|channel|String|Y|PARCEL\_NINJA|
+|channelId|channel|String|Y|WAREHOUSE\_UK|
 |inventoryInfoList|List of child inventory id configs per bundle|List|Y|-|
 |InventoryInfoList[\*].inventoryId|Child inventory Id|String|Y|B291-F55D039CE4EF4EEE|
 |<p>InventoryInfoList[\*].quantity</p><p></p>|Inventory of child InventoryId per bundle|Integer|Y|5|
@@ -789,7 +789,7 @@ curl --location --request POST ‘{{HOST}}api/ims/v1/bundle' \
 --data-raw '{ 
     "merchantId" : "2f6823d4-8dfb-5", 
     "mergeOrigin" : "B291-E8A4E4F8C7D0E283", 
-    "channelId": "PARCEL_NINJA", 
+    "channelId": "WAREHOUSE_UK", 
     "inventoryInfoList" : [ 
         { 
             "inventoryId" : "B291-F55D039CE4EF4EEE", 
@@ -814,7 +814,7 @@ curl --location --request POST ‘{{HOST}}api/ims/v1/bundle' \
 ```json{
   "merchantId": "2f6823d4-8dfb-5",
   "mergeOrigin": "B291-E8A4E4F8C7D0E283",
-  "channelId": "PARCEL_NINJA",
+  "channelId": "WAREHOUSE_UK",
   "groupId": "a8740efa-fa7a-4768-af0d-aeade5451804",
   "inventoryInfoList": [
     {
@@ -830,7 +830,7 @@ curl --location --request POST ‘{{HOST}}api/ims/v1/bundle' \
 | :- | :- | :- | :- | :- |
 |merchantId|sellerId|String|Y|2f6823d4-8dfb-5|
 |mergeOrigin|Bundled inventory Id to be updated|String|Y|B291-E8A4E4F8C7D0E283|
-|channelId|channel|String|Y|PARCEL\_NINJA|
+|channelId|channel|String|Y|WAREHOUSE\_UK|
 |groupId|Unique groupId of bundled product|String|Y|a8740efa-fa7a-4768-af0d-aeade5451804|
 |inventoryInfoList|List of updated child inventory id configs per bundle|List|Y|-|
 |InventoryInfoList[\*].inventoryId|Child inventory Id|String|Y|B291-F55D039CE4EF4EEE|
@@ -858,7 +858,7 @@ curl --location --request PUT ‘{{HOST}}/api/ims/v1/bundle' \
 --data-raw '{ 
     "merchantId" : "2f6823d4-8dfb-5", 
     "mergeOrigin" : "B291-E8A4E4F8C7D0E283", 
-    "channelId": "PARCEL_NINJA", 
+    "channelId": "WAREHOUSE_UK", 
     "groupId" : "a8740efa-fa7a-4768-af0d-aeade5451804", 
     "inventoryInfoList" : [ 
         { 
