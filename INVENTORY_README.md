@@ -102,10 +102,10 @@ curl --location '{dns}/api/ims/v1/inventory/inventory-summary/warehouse?pageNo=1
       "exceptions": 0,
       "batchCount": 1,
       "warehouseInventoryMap": {
-        "PARCELNINJA_PARCEL_NINJA": {
-          "warehouseId": "PARCELNINJA_PARCEL_NINJA",
+        "WAREHOUSE_UK": {
+          "warehouseId": "WAREHOUSE_UK",
           "inventoryId": "A024-0811E47B2BEAE501",
-          "warehouseName": "Linbro - South Africa",
+          "warehouseName": "Hinckley-UK",
           "needsReorder": false,
           "total": 120,
           "incoming": 0,
@@ -129,10 +129,10 @@ curl --location '{dns}/api/ims/v1/inventory/inventory-summary/warehouse?pageNo=1
       "exceptions": 0,
       "batchCount": 1,
       "warehouseInventoryMap": {
-        "PARCELNINJA_PARCEL_NINJA": {
-          "warehouseId": "PARCELNINJA_PARCEL_NINJA",
+        "WAREHOUSE_UK": {
+          "warehouseId": "WAREHOUSE_UK",
           "inventoryId": "A024-0829C9DE075DFC34",
-          "warehouseName": "Linbro - South Africa",
+          "warehouseName": "Hinckley-UK",
           "needsReorder": false,
           "total": 150,
           "incoming": 0,
@@ -156,10 +156,10 @@ curl --location '{dns}/api/ims/v1/inventory/inventory-summary/warehouse?pageNo=1
       "exceptions": 0,
       "batchCount": 1,
       "warehouseInventoryMap": {
-        "PARCELNINJA_PARCEL_NINJA": {
-          "warehouseId": "PARCELNINJA_PARCEL_NINJA",
+        "WAREHOUSE_UK": {
+          "warehouseId": "WAREHOUSE_UK",
           "inventoryId": "A024-08E95A43E1536BF6",
-          "warehouseName": "Linbro - South Africa",
+          "warehouseName": "Hinckley-UK",
           "needsReorder": false,
           "total": 140,
           "incoming": 150,
@@ -183,10 +183,10 @@ curl --location '{dns}/api/ims/v1/inventory/inventory-summary/warehouse?pageNo=1
       "exceptions": 0,
       "batchCount": 1,
       "warehouseInventoryMap": {
-        "PARCELNINJA_PARCEL_NINJA": {
-          "warehouseId": "PARCELNINJA_PARCEL_NINJA",
+        "WAREHOUSE_UK": {
+          "warehouseId": "WAREHOUSE_UK",
           "inventoryId": "A024-146DB3299CE9E810",
-          "warehouseName": "Linbro - South Africa",
+          "warehouseName": "Hinckley-UK",
           "needsReorder": false,
           "total": 210,
           "incoming": 0,
@@ -210,10 +210,10 @@ curl --location '{dns}/api/ims/v1/inventory/inventory-summary/warehouse?pageNo=1
       "exceptions": 0,
       "batchCount": 1,
       "warehouseInventoryMap": {
-        "PARCELNINJA_PARCEL_NINJA": {
-          "warehouseId": "PARCELNINJA_PARCEL_NINJA",
+        "WAREHOUSE_UK": {
+          "warehouseId": "WAREHOUSE_UK",
           "inventoryId": "A024-14A45C22C3008094",
-          "warehouseName": "Linbro - South Africa",
+          "warehouseName": "Hinckley-UK",
           "needsReorder": false,
           "total": 120,
           "incoming": 0,
@@ -237,10 +237,10 @@ curl --location '{dns}/api/ims/v1/inventory/inventory-summary/warehouse?pageNo=1
       "exceptions": 0,
       "batchCount": 1,
       "warehouseInventoryMap": {
-        "PARCELNINJA_PARCEL_NINJA": {
-          "warehouseId": "PARCELNINJA_PARCEL_NINJA",
+        "WAREHOUSE_UK": {
+          "warehouseId": "WAREHOUSE_UK",
           "inventoryId": "A024-1666A79DAA7DC826",
-          "warehouseName": "Linbro - South Africa",
+          "warehouseName": "Hinckley-UK",
           "needsReorder": false,
           "total": 130,
           "incoming": 0,
@@ -264,10 +264,10 @@ curl --location '{dns}/api/ims/v1/inventory/inventory-summary/warehouse?pageNo=1
       "exceptions": 0,
       "batchCount": 1,
       "warehouseInventoryMap": {
-        "PARCELNINJA_PARCEL_NINJA": {
-          "warehouseId": "PARCELNINJA_PARCEL_NINJA",
+        "WAREHOUSE_UK": {
+          "warehouseId": "WAREHOUSE_UK",
           "inventoryId": "A024-1FF4DC76ACA0DA3D",
-          "warehouseName": "Linbro - South Africa",
+          "warehouseName": "Hinckley-UK",
           "needsReorder": false,
           "total": 0,
           "incoming": 100,
@@ -291,10 +291,10 @@ curl --location '{dns}/api/ims/v1/inventory/inventory-summary/warehouse?pageNo=1
       "exceptions": 0,
       "batchCount": 1,
       "warehouseInventoryMap": {
-        "PARCELNINJA_PARCEL_NINJA": {
-          "warehouseId": "PARCELNINJA_PARCEL_NINJA",
+        "WAREHOUSE_UK": {
+          "warehouseId": "WAREHOUSE_UK",
           "inventoryId": "A024-254F4B4EA9C8A363",
-          "warehouseName": "Linbro - South Africa",
+          "warehouseName": "Hinckley-UK",
           "needsReorder": false,
           "total": 0,
           "incoming": 100,
@@ -318,10 +318,10 @@ curl --location '{dns}/api/ims/v1/inventory/inventory-summary/warehouse?pageNo=1
       "exceptions": 0,
       "batchCount": 1,
       "warehouseInventoryMap": {
-        "PARCELNINJA_PARCEL_NINJA": {
-          "warehouseId": "PARCELNINJA_PARCEL_NINJA",
+        "WAREHOUSE_UK": {
+          "warehouseId": "WAREHOUSE_UK",
           "inventoryId": "A024-286099DEB090496A",
-          "warehouseName": "Linbro - South Africa",
+          "warehouseName": "Hinckley-UK",
           "needsReorder": false,
           "total": 140,
           "incoming": 0,
@@ -345,10 +345,10 @@ curl --location '{dns}/api/ims/v1/inventory/inventory-summary/warehouse?pageNo=1
       "exceptions": 0,
       "batchCount": 1,
       "warehouseInventoryMap": {
-        "PARCELNINJA_PARCEL_NINJA": {
-          "warehouseId": "PARCELNINJA_PARCEL_NINJA",
+        "WAREHOUSE_UK": {
+          "warehouseId": "WAREHOUSE_UK",
           "inventoryId": "A024-37E8DC094ED9510E",
-          "warehouseName": "Linbro - South Africa",
+          "warehouseName": "Hinckley-UK",
           "needsReorder": false,
           "total": 80,
           "incoming": 0,
