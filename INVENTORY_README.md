@@ -442,3 +442,156 @@ curl --location --request GET 'http://ecom-qa-ims.dpworld.com/api/ims/v1/invento
   ]
 }
 ```
+
+### Inventory History API (Inventory Ledger API)
+Inventory Ledger
+- **URL**:  {dns}/api/ims/v1/inventory/inventory/history?inventoryId=B732-TEST_PARENT&fromDate=2025-07-01&toDate=2025-07-29&warehouseId=IMS_1723_MIDDLETOWN&direction=DESC&pageNo=1&pageSize=15&referenceId=RO-10000099615&action=EN_ROUTE&sortOn=createdAt
+- **Request Type**: GET
+
+#### Query params
+| **Field**                  | **Description**                                   | **Datatype**      | **Mandatory** | **Example**           |
+| -------------------------- | ------------------------------------------------- | ----------------- | ------------- | --------------------- |
+| `inventoryId`              | Inventory ID to filter                            | String            | No            | B732-TEST\_PARENT     |
+| `fromDate`                 | Start date for inventory movement or status       | Date (YYYY-MM-DD) | No            | 2025-07-01            |
+| `toDate`                   | End date for inventory movement or status         | Date (YYYY-MM-DD) | No            | 2025-07-29            |
+| `warehouseId`              | Warehouse in which inventory is kept              | String            | No            | IMS\_1723\_MIDDLETOWN |
+| `direction`                | Sort direction                                    | String            | No            | DESC                  |
+| `pageNo`                   | Page number for pagination                        | Integer           | No            | 1                     |
+| `pageSize`                 | Number of records per page                        | Integer           | No            | 15                    |
+| `referenceId`              | Related transaction or document reference         | String            | No            | RO-10000099615        |
+| `action`                   | Current inventory action                          | String            | No            | EN\_ROUTE             |
+| `sortOn`                   | Field name to sort results on                     | String            | No            | createdAt             |
+
+Curl
+```bash
+curl --location 'https://ecom-sfs-nonprod.dpworld.com/sfs-preprod/api/ims/v1/inventory/history?inventoryId=B732-TEST_PARENT&fromDate=2025-07-01&toDate=2025-07-29&warehouseId=IMS_1723_MIDDLETOWN&direction=DESC&pageNo=1&pageSize=15&referenceId=RO-10000099615&action=EN_ROUTE&sortOn=createdAt' \
+--header 'accept: */*' \
+--header 'Content-Type: application/json' \
+--header 'Ocp-Apim-Subscription-Key: <subscriptionKey>' \
+--header 'Authorization: Bearer <token>'
+```
+
+#### Response
+200
+```json
+{
+  "inventoryHistoryProjectionList": [
+    {
+      "action": "EN_ROUTE",
+      "inventoryId": "B732-TEST_PARENT",
+      "event": "ORACLE_PUT_AWAY_EVENT",
+      "warehouseId": "IMS_1723_MIDDLETOWN",
+      "quantity": "10",
+      "eventTimeStamp": null,
+      "batchNumber": "NA",
+      "ledgerEvent": null,
+      "createdAt": "2025-07-28 07:16:32.0",
+      "eventRefId": "RO-10000099615",
+      "adjustmentType": "DEBIT",
+      "inventoryBalance": "10"
+    },
+    {
+      "action": "EN_ROUTE",
+      "inventoryId": "B732-TEST_PARENT",
+      "event": "RO_CREATION",
+      "warehouseId": "IMS_1723_MIDDLETOWN",
+      "quantity": "10",
+      "eventTimeStamp": null,
+      "batchNumber": "NA",
+      "ledgerEvent": null,
+      "createdAt": "2025-07-28 07:10:54.0",
+      "eventRefId": "RO-10000099615",
+      "adjustmentType": "CREDIT",
+      "inventoryBalance": "0"
+    }
+  ],
+  "inventoryHistoryDtos": [
+    {
+      "event": "ORACLE_PUT_AWAY_EVENT",
+      "action": "EN_ROUTE",
+      "eventRefId": "RO-10000099615",
+      "eventTimeStamp": null,
+      "inventoryId": "B732-TEST_PARENT",
+      "warehouseId": "IMS_1723_MIDDLETOWN",
+      "warehouseLabel": "Middletown (United States)",
+      "batchNumber": "NA",
+      "adjustmentType": "DEBIT",
+      "quantity": "10",
+      "createdAt": "2025-07-28 07:16:32.0"
+    },
+    {
+      "event": "RO_CREATION",
+      "action": "EN_ROUTE",
+      "eventRefId": "RO-10000099615",
+      "eventTimeStamp": null,
+      "inventoryId": "B732-TEST_PARENT",
+      "warehouseId": "IMS_1723_MIDDLETOWN",
+      "warehouseLabel": "Middletown (United States)",
+      "batchNumber": "NA",
+      "adjustmentType": "CREDIT",
+      "quantity": "10",
+      "createdAt": "2025-07-28 07:10:54.0"
+    }
+  ],
+  "pageInformation": {
+    "page": 1,
+    "size": 15,
+    "totalPages": 1,
+    "totalElements": 2,
+    "hasNext": false
+  }
+}
+```
+400
+```json
+{
+  "timestamp": "2024-03-08T11:01:47.411070642",
+  "errorReasonCode": "BAD_REQUEST_EXCEPTION",
+  "status": "BAD_REQUEST",
+  "message": "SearchProduct can't be null",
+  "requestId": "65eaf01bce077e4b3d7aab62de69a49f",
+  "errors": [
+    "BAD_REQUEST_EXCEPTION"
+  ]
+}
+```
+## 📘 Supported `action` Filters for Inventory History API
+
+The `action` parameter in the Inventory History API helps filter inventory events based on their specific lifecycle transitions or system-triggered changes. This is useful for tracking movements, anomalies, and stock state updates.
+
+Below is the complete list of supported `action` values:
+
+| Action | Description |
+|--------|-------------|
+| `EN_ROUTE` | Inventory that is currently in transit. |
+| `AVAILABLE` | Inventory available for allocation or reservation. |
+| `SOFT_ALLOCATE` | Inventory tentatively reserved but not finalized. |
+| `ALLOCATED` | Inventory committed to an order. |
+| `IN_PROCESS` | Inventory involved in ongoing warehouse operations. |
+| `REJECTED` | Items rejected during receiving or inspection. |
+| `BLOCKED` | Inventory blocked due to quality or compliance issues. |
+| `LOST` | Inventory that has been lost or cannot be accounted for. |
+| `RECEIVED` | Inventory successfully received into the warehouse. |
+| `EXCESS_RECEIVED` | Extra units received over expected quantity. |
+| `EXCESS_PUT_AWAY` | Excess inventory placed into storage. |
+| `EXCESS_BROKEN` | Broken or damaged excess inventory. |
+| `RESERVED` | Inventory set aside for specific use or future allocation. |
+| `DAMAGED` | Items marked as damaged and unavailable for normal use. |
+| `EXPIRED` | Inventory past its expiration date. |
+| `NEAR_EXPIRED` | Inventory approaching expiration date. |
+| `FACTORY_FAULT` | Items marked defective from the manufacturer. |
+| `RECALL` | Items under manufacturer or supplier recall. |
+| `IN_TRANSIT_DAMAGED` | Inventory damaged while in transit. |
+| `DAMAGED_RESERVED` | Reserved inventory that is damaged. |
+| `EXPIRED_RESERVED` | Reserved inventory that has expired. |
+| `NEAR_EXPIRED_RESERVED` | Reserved inventory nearing expiration. |
+| `DAMAGED_ALLOCATED` | Allocated inventory found to be damaged. |
+| `FACTORY_FAULT_RESERVED` | Reserved inventory flagged as factory fault. |
+| `EXPIRED_ALLOCATED` | Allocated inventory that has expired. |
+| `FACTORY_FAULT_ALLOCATED` | Allocated inventory with factory defects. |
+| `NEAR_EXPIRED_ALLOCATED` | Allocated inventory nearing expiry. |
+| `ON_HOLD` | Inventory placed on hold for manual review or issue resolution. |
+| `NEAR_EXPIRY` | Alternate label for items close to expiration. |
+| `INTRANSIT_DAMAGED` | Another label for damaged items during transit. |
+
+>
