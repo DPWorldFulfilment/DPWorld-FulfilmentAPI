@@ -147,7 +147,17 @@ In orders, there are two possible shipment types that can be used:
         ]
       }
     ],
-    "additionalAttributes": []
+    "additionalAttributes": [
+      {
+        "attributeData": [
+          {
+            "attributeName": "PACKLIST",
+            "attributeValue": "YES"
+          }
+        ],
+        "attributeType": "ADDITIONAL_ATTRIBUTES"
+      }
+    ]
   },
   "totalChargeDetails": [
     {
@@ -213,6 +223,9 @@ In orders, there are two possible shipment types that can be used:
       "comment": "Please pack items securely."
     }
   ],
+  "platformAttributes": {
+    "brandCode": "20959"
+  },
   "attachments": [
     {
       "documentName": "Not Available.pdf",
@@ -396,6 +409,37 @@ In orders, there are two possible shipment types that can be used:
 |attributeValue|Attribute value|String|Yes|"1"|
 |attributeName|Attribute name|String|Yes|"DOCUMENT\_PLACE\_ATTRIBUTE"|
 |attributeValue|Attribute value|String|Yes|"PLACE\_INSIDE"|
+
+##### **Nested Fields: AdditionalAttribute
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| `attributeType` | String | Yes | Type/category of additional attributes | `LINE_ATTRIBUTES` |
+| `attributeData` | Array | Yes | List of attribute name-value pairs | See AttributeData below |
+
+##### ** AttributeData
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| `attributeName` | String | Yes | Name of the attribute | `PACKLIST` |
+| `attributeValue` | String | Yes | Value of the attribute | `10` |
+
+##### Allowed Attribute Names
+
+The following attribute names are supported:
+
+- `PACKLIST` - Packing list information
+- `BACK_DOOR_DELIVERY` - Back door delivery requirement
+- `INSURANCE` - Insurance coverage flag
+- `PRIORITY_DELIVERY` - Priority/expedited delivery flag
+- `AGE_VERIFICATION` - Age verification requirement
+
+##### ** PlatformAttributes (Optional)
+
+| Field | Type | Required | Description | Example |
+|-------|------|----------|-------------|---------|
+| `isBrand` | Boolean | No | Whether the product is branded | `true` |
+| `brandCode` | String | No | The code of the brand | `NIKE` |
 
 
 #### Response
