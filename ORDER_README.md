@@ -422,7 +422,7 @@ In orders, there are two possible shipment types that can be used:
 | Field | Type | Required | Description | Example |
 |-------|------|----------|-------------|---------|
 | `attributeName` | String | Yes | Name of the attribute | `PACKLIST` |
-| `attributeValue` | String | Yes | Value of the attribute | `10` |
+| `attributeValue` | String | Yes | Value of the attribute | `YES` |
 
 ##### Allowed Attribute Names
 
