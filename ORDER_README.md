@@ -116,7 +116,10 @@ In orders, there are two possible shipment types that can be used:
     "shippingType": "DPW_SHIPPING",
     "shippingOption": "CHEAPEST",
     "fulfillmentCenter": "WAREHOUSE_UK",
-    "quoteId": null
+    "quoteId": null,
+    "shippingMethod": [
+      "Evri Standard Delivery (2–3 working days)"
+    ]
   },
   "fulfillmentLines": {
     "totalLineQty": 1,
@@ -743,7 +746,6 @@ Get a specific order using the orderId
     },
     "consigneeOrderId": "string",
     "orderPlacedAt": "2024-03-17T06:19:42.816Z",
-    "shippingMethod": "EXPEDITED",
     "carrierMethod": "string",
     "customerLanguageId": 0,
     "fulfillmentType": "DPW_FULFILLMENT",
@@ -762,11 +764,9 @@ Get a specific order using the orderId
           "fulfillmentLineId": 0,
           "lineOrderPlacedAt": "2024-03-17T06:19:42.816Z",
           "lineOrderStatus": "string",
-          "shippingMethod": "EXPEDITED",
           "shippingDetail": {
             "shippingType": "DPW_SHIPPING",
             "shippingOption": "CHEAPEST",
-            "shippingMethod": "Super Fast",
             "fulfillmentCenter": "Joberg, South Africa",
             "quoteId": "Q12345",
             "courierName": "FedEx"
