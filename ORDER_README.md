@@ -63,6 +63,8 @@ In orders, there are two possible shipment types that can be used:
   "currency": "EUR",
   "orderStatus": "CREATED",
   "consigneeOrderId": "C-01",
+  "marketplaceFlag": 1,
+  "marketplaceDesc": "Amazon",
   "consignee": {
     "contact": {
       "name": {
@@ -262,6 +264,8 @@ In orders, there are two possible shipment types that can be used:
 |orderPlacedAt|Timestamp indicating when the order was placed (UTC)|String (ISO 8601)|Yes|"2024-03-01T06:11:59.865Z"|
 |currency|Currency code|String|Yes|"EUR"|
 |consigneeOrderId|Consignee order ID|String|No|"C-01"|
+|marketplaceFlag|market place flag|int|No|1|
+|marketplaceDesc|market place description|String|No|"Amazon"|
 #### Consignee Details
 
 |**Field**|**Description**|**Data Type**|**Mandatory**|**Example**|
