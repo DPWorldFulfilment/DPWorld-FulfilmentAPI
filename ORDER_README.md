@@ -1111,7 +1111,8 @@ Get a specific shipment using the shipmentId of order
         "sellerId": "string",
         "omsItemId": "string",
         "barcode": "string",
-        "returnQuantity": 0
+        "returnQuantity": 0,
+        "customsItemValue": 90 
       }
     ],
     "orderDetail": {
