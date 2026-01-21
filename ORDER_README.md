@@ -147,7 +147,12 @@ In orders, there are two possible shipment types that can be used:
           {
             "chargeCategory": "PRODUCT",
             "chargeName": "ITEM_PRICE",
-            "currencyAmount": 0
+            "currencyAmount": 100
+          },
+          {
+            "chargeCategory": "PRODUCT",
+            "chargeName": "DISCOUNT",
+            "currencyAmount": 10
           }
         ]
       }
@@ -368,6 +373,7 @@ In orders, there are two possible shipment types that can be used:
 |chargeCategory|Category of the charge|String|Yes|"PRODUCT"|
 |chargeName|Name of the charge|String|Yes|"ITEM_PRICE"|
 |currencyAmount|Amount of the charge|Double|Yes|1.0|
+Note: customs value = chargename(ITEM_PRICE)-chargename(DISCOUNT)
 #### Payment Details
 
 |**Field**|**Description**|**Data Type**|**Mandatory**|**Example**|
