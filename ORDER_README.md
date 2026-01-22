@@ -269,8 +269,8 @@ In orders, there are two possible shipment types that can be used:
 |orderPlacedAt|Timestamp indicating when the order was placed (UTC)|String (ISO 8601)|Yes|"2024-03-01T06:11:59.865Z"|
 |currency|Currency code|String|Yes|"EUR"|
 |consigneeOrderId|Consignee order ID|String|No|"C-01"|
-|marketplaceFlag|market place flag|int|No|default - 0<br> Amazon - 1<br>Otto - 2<br>John Lewis - 3|
-|marketplaceDesc|market place description|String|No|"Amazon"|
+|marketplaceFlag|marketplace flag|int|No|default - 0<br> Amazon - 1<br>Otto - 2<br>John Lewis - 3|
+|marketplaceDesc|marketplace description|String|No|"Amazon"|
 #### Consignee Details
 
 |**Field**|**Description**|**Data Type**|**Mandatory**|**Example**|
