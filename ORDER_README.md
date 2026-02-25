@@ -325,7 +325,7 @@ In orders, there are two possible shipment types that can be used:
 |                  | **Options:**                        |           |           |                             |
 |                  | CHEAPEST                           |           |           |                             |
 |                  | FASTEST                            |           |           |                             |
-|                  | RESPECTIVE_COURIERS                |           |           |                             |
+|                  | RESPECTIVE_COURIER                |           |           |                             |
 | fulfillmentCenter| Fulfillment center                   | String    | Yes       | "WAREHOUSE_UK" |
 
 
