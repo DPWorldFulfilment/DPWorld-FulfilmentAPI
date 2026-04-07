@@ -121,7 +121,9 @@ In orders, there are two possible shipment types that can be used:
     "quoteId": null,
     "shippingMethod": [
       "Evri Standard Delivery (2–3 working days)"
-    ]
+    ],
+    "shippingMode": "Pallet 120 x 100",
+    "shippingModeType": "PALLET"
   },
   "fulfillmentLines": {
     "totalLineQty": 1,
@@ -327,6 +329,8 @@ In orders, there are two possible shipment types that can be used:
 |                  | FASTEST                            |           |           |                             |
 |                  | RESPECTIVE_COURIER                |           |           |                             |
 | fulfillmentCenter| Fulfillment center                   | String    | Yes       | "WAREHOUSE_UK" |
+| shippingModeType| Shipping Mode Type                 | String    | No       | Possible Values - "PALLET" or "PARCEL" |
+| shippingMode| Shipping Mode                  | String    | No       | "Pallet 120 x 100" |
 
 
 #### Fulfillment Lines
