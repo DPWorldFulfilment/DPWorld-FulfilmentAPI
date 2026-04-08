@@ -1243,7 +1243,10 @@ Get a specific shipment using the shipmentId of order
       "shippingMethod": "Super Fast",
       "fulfillmentCenter": "Joberg, South Africa",
       "quoteId": "Q12345",
-      "courierName": "FedEx"
+      "courierName": "FedEx",
+      "shippingMode": "PARCEL 120* 10",
+      "shippingModeType": "PARCEL",
+      "isShippingModeEditable": false
     },
     "additionalAttributes": [
       {
