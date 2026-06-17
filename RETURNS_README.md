@@ -78,7 +78,10 @@ Create a return order
   "shippingDetails": {
     "shippingType": "DPW_SHIPPING",
     "shippingOption": "CHEAPEST",
-    "fulfillmentCenter": "WAREHOUSE_UK"
+    "fulfillmentCenter": "WAREHOUSE_UK",
+    "pickupDate": "2026-06-18",
+    "courierName": "DHL",
+    "trackingNumber": "ABCD1234""
   },
   "consigneeOrderId": null,
   "fulfillmentLines": {
@@ -103,7 +106,8 @@ Create a return order
     ]
   },
   "parentShipmentId": "SHP-10000010959",
-  "orderCreationType": "SFS_PORTAL"
+  "orderCreationType": "SFS_PORTAL",
+  "returnType": "Announced Return"
 }
 ```
 | Field              | Description                                           | Data Type    | Mandatory | Example                      |
@@ -125,6 +129,7 @@ Create a return order
 | fulfillmentLines   | Details of the fulfillment lines                      | Object       | Yes       | See below                    |
 | parentShipmentId   | ID of the parent shipment                             | String       | Yes       | "SHP-10000010959"            |
 | orderCreationType  | Type of order creation                                | String       | Yes       | "SFS_PORTAL"                 |
+| returnType         | Type of return                                        | String       | Yes       | "Announced Return"           |
 
 ### pickupFrom:
 | Field    | Description                               | Data Type | Mandatory | Example                                  |
@@ -166,7 +171,10 @@ Create a return order
 |-------------------|-------------------------------|-----------|-----------|-----------------------------------|
 | shippingType      | Type of shipping              | String    | Yes       | "DPW_SHIPPING"                   |
 | shippingOption    | Shipping option               | String    | Yes       | "CHEAPEST"                       |
-| fulfillmentCenter | Fulfillment center            | String    | Yes       | "WAREHOUSE_UK"    |
+| fulfillmentCenter | Fulfillment center            | String    | Yes       | "WAREHOUSE_UK"                   |
+| pickupDate        | Pick up date                  | String    | Yes       | "2026-06-18"                     |
+| courierName       | courier Name                  | String    | Yes       | "DHL"    |
+| trackingNumber    | Tracking Number               | String    | Yes       | "ABCD1234"    |
 
 ### fulfillmentLines:
 | Field               | Description                               | Data Type | Mandatory | Example                      |
