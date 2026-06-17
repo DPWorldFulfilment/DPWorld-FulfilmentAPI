@@ -129,7 +129,7 @@ Create a return order
 | fulfillmentLines   | Details of the fulfillment lines                      | Object       | Yes       | See below                    |
 | parentShipmentId   | ID of the parent shipment                             | String       | Yes       | "SHP-10000010959"            |
 | orderCreationType  | Type of order creation                                | String       | Yes       | "SFS_PORTAL"                 |
-| returnType         | Type of return                                        | String       | Yes       | "Announced Return"           |
+| returnType         | Type of return                                        | String       | Yes       | ENUM - "Announced Return"           |
 
 ### pickupFrom:
 | Field    | Description                               | Data Type | Mandatory | Example                                  |
