@@ -7,10 +7,30 @@ In this type of return, the customer initiates the return process, and the vendo
 - **Automatic Return on Return To Origin by Courier (RTO)**:
 Returns are automatically initiated when a courier is unable to deliver the shipment to the customer and marks it for return to the origin.
 
+### 🚨 NEW – Announced Return
+
+An Announced Return is a seller-created return where the seller provides logistics information and the return is sent to OWMS for warehouse processing.
+
+**Key characteristics:**
+
+- Applicable only for **External Label Return** shipment type.
+- Seller may optionally provide logistics information during creation:
+  - Courier
+  - Tracking Number
+  - Expected Date of Arrival
+- Return creation must never be blocked.
+- If logistics details are incomplete, return is created in **ON_HOLD** status.
+- Once logistics details are completed, the return moves to **AWAITING_ARRIVAL** and a Return Order (RO) is automatically created in OWMS.
+
+---
+
+An Announced Return is a seller-created return where the seller provides logistics information and the return is sent to OWMS for warehouse processing.
+
 ## Shipment Types
 Returns can be associated with two types of shipments:
 - **DPW_SHIPPING** : Courier pickup: The return items are collected by the courier from the customer's location.
 - **DROP_AT_WAREHOUSE**: The customer drops off the return items at a designated warehouse location.
+- 🚨 **DROP_AT_WAREHOUSE** *(can be reused for External Label Return)* – Seller-managed return shipment where the seller provides external courier and tracking information.
 
 ## Return Actions
 While creating a return, users can specify the action to be taken on the returned products. Two common actions are:
@@ -21,6 +41,7 @@ While creating a return, users can specify the action to be taken on the returne
 | Status              | Description                                                                                                            |
 |--------------------------|------------------------------------------------------------------------------------------------------------------------|
 | CREATED                  | Return has been created.                                                                                               |
+| 🚨 ON_HOLD | Return created successfully but logistics information is incomplete. |
 | AWAITING_ARRIVAL         | Processing, Inbound has been created.                                                                                  |
 | COLLECTED_BY_COURIER     | Processing, Once a return is picked up by courier.                                                                     |
 | OUT_FOR_DELIVERY         | Processing, Once a return is out for delivery by courier.                                                               |
@@ -32,6 +53,21 @@ While creating a return, users can specify the action to be taken on the returne
 | FAILED_RETURN_DELIVERY   | Failed, Courier is not able to deliver to warehouse as marked by the courier.                                           |
 | RETURN_TO_ORIGIN         | Failed, Courier is being returned to origin/Sender as marked by courier.                                               |
 | CANCELLED                | Failed, Return is cancelled by the Seller.                                                                             |
+
+## 🚨 New Return Lifecycle (External Label Return)
+
+```text
+Return Created
+      ↓
+Return On Hold
+(if courier / tracking number)
+      ↓
+Awaiting Arrival
+      ↓
+Received At Warehouse
+      ↓
+Completed
+```
 
 ### Create a Return
 Create a return order
@@ -129,7 +165,7 @@ Create a return order
 | fulfillmentLines   | Details of the fulfillment lines                      | Object       | Yes       | See below                    |
 | parentShipmentId   | ID of the parent shipment                             | String       | Yes       | "SHP-10000010959"            |
 | orderCreationType  | Type of order creation                                | String       | Yes       | "SFS_PORTAL"                 |
-| returnType         | Type of return                                        | String       | Yes       | ENUM - "Announced Return"           |
+|  🚨 returnType         | Type of return                                        | String       | Yes       | ENUM -  🚨 "Announced Return"    |
 
 ### pickupFrom:
 | Field    | Description                               | Data Type | Mandatory | Example                                  |
@@ -169,12 +205,12 @@ Create a return order
 ### shippingDetails:
 | Field             | Description                   | Data Type | Mandatory | Example                           |
 |-------------------|-------------------------------|-----------|-----------|-----------------------------------|
-| shippingType      | Type of shipping              | String    | Yes       | "DPW_SHIPPING"                   |
+| shippingType      | Type of shipping              | String    | Yes       | Enum - "DPW_SHIPPING" or "DROP_AT_WAREHOUSE",  🚨 use DROP_AT_WAREHOUSE for External Label Return|
 | shippingOption    | Shipping option               | String    | Yes       | "CHEAPEST"                       |
 | fulfillmentCenter | Fulfillment center            | String    | Yes       | "WAREHOUSE_UK"                   |
-| pickupDate        | Pick up date                  | String    | Yes       | "2026-06-18"                     |
-| courierName       | courier Name                  | String    | Yes       | "DHL"    |
-| trackingNumber    | Tracking Number               | String    | Yes       | "ABCD1234"    |
+| pickupDate        | Pick up date (for DPW_SHIPPING) or Expected Date Of Arrival (for Drop at Warehouse or 🚨 External Label Return)  | String    | Yes       | "2026-06-18"                     |
+|  🚨 courierName       | courier Name                  | String    | Yes       | "DHL"    |
+|  🚨 trackingNumber    | Tracking Number               | String    | Yes       | "ABCD1234"    |
 
 ### fulfillmentLines:
 | Field               | Description                               | Data Type | Mandatory | Example                      |
