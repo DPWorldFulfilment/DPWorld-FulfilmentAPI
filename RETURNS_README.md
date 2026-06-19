@@ -9,7 +9,7 @@ Returns are automatically initiated when a courier is unable to deliver the ship
 
 ### 🚨 NEW – Announced Return
 
-An Announced Return is a seller-created return where the seller provides logistics information and the return is sent to OWMS for warehouse processing.
+An Announced Return is a seller-created return where the seller provides logistics information.
 
 **Key characteristics:**
 
@@ -17,10 +17,8 @@ An Announced Return is a seller-created return where the seller provides logisti
 - Seller may optionally provide logistics information during creation:
   - Courier
   - Tracking Number
-  - Expected Date of Arrival
-- Return creation must never be blocked.
 - If logistics details are incomplete, return is created in **ON_HOLD** status.
-- Once logistics details are completed, the return moves to **AWAITING_ARRIVAL** and a Return Order (RO) is automatically created in OWMS.
+- Once logistics details are completed, the return moves to **AWAITING_ARRIVAL** and processed
 
 ---
 
