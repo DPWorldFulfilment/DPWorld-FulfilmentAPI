@@ -22,7 +22,7 @@ An Announced Return is a seller-created return where the seller provides logisti
 
 ---
 
-An Announced Return is a seller-created return where the seller provides logistics information and the return is sent to OWMS for warehouse processing.
+An Announced Return is a seller-created return where the seller provides logistics information.
 
 ## Shipment Types
 Returns can be associated with two types of shipments:
