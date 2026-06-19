@@ -20,10 +20,6 @@ An Announced Return is a seller-created return where the seller provides logisti
 - If logistics details are incomplete, return is created in **ON_HOLD** status.
 - Once logistics details are completed, the return moves to **AWAITING_ARRIVAL** and processed
 
----
-
-An Announced Return is a seller-created return where the seller provides logistics information.
-
 ## Shipment Types
 Returns can be associated with two types of shipments:
 - **DPW_SHIPPING** : Courier pickup: The return items are collected by the courier from the customer's location.
