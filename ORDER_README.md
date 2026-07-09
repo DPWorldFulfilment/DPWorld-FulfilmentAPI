@@ -65,6 +65,8 @@ In orders, there are two possible shipment types that can be used:
   "consigneeOrderId": "C-01",
   "marketplaceFlag": 1,
   "marketplaceDesc": "Amazon",
+  "orderTags": "Subscription, Subscription Recurring Order",
+  "dropShippingCourierService": "EU Standard - up to 750g",
   "consignee": {
     "contact": {
       "name": {
@@ -273,6 +275,8 @@ In orders, there are two possible shipment types that can be used:
 |consigneeOrderId|Consignee order ID|String|No|"C-01"|
 |marketplaceFlag|marketplace flag|int|No|default - 0<br> Amazon - 1<br>Otto - 2<br>John Lewis - 3|
 |marketplaceDesc|marketplace description|String|No|"Amazon"|
+|orderTags|orderTags/tags (retailer associated with the order - comma separated)|String (150)|No|"Subscription, Subscription Recurring Order"|
+|dropShippingCourierService|DropShipping Courier Service identifier|String (150)|No|"EU Standard - up to 750g"|
 #### Consignee Details
 
 |**Field**|**Description**|**Data Type**|**Mandatory**|**Example**|
