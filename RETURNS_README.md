@@ -1,3 +1,10 @@
+### Request Headers
+
+| Header | Mandatory | Description |
+|---|---|---|
+| `seller-id` | **Yes** | Unique identifier of the seller. This header must be sent with every request. |
+| `requestId` | No | Unique identifier for each API call. Send this header when end-to-end request tracking is required. |
+
 # Returns
 Returns are an integral part of the order fulfillment process, allowing customers to return products for various reasons. There are two primary types of returns: Manual Return RVP (Return Vendor Pickup) and automatic return on Return To Origin by courier RTO.
 
