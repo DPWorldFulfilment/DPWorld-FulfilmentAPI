@@ -1,3 +1,10 @@
+### Request Headers
+
+| Header | Mandatory | Description |
+|---|---|---|
+| `seller-id` | **Yes** | Unique identifier of the seller. This header must be sent with every request. |
+| `requestId` | No | Unique identifier for each API call. Send this header when end-to-end request tracking is required. |
+
 # Inventory APIs
 
 ### Inventory Summary API
