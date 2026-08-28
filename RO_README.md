@@ -2,7 +2,7 @@
 
 | Header | Mandatory | Description |
 |---|---|---|
-| `seller-id` | **Yes** | Unique identifier of the seller. This header must be sent with every request. |
+| `buId` | **Yes** | Unique identifier of the seller/seller-id. This header must be sent with every request. |
 | `requestId` | No | Unique identifier for each API call. Send this header when end-to-end request tracking is required. |
 
 # Receiving Order / Inbound
