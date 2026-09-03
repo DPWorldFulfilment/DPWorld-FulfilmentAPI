@@ -276,7 +276,7 @@ In orders, there are two possible shipment types that can be used:
 |orderCreationType|Medium of creation for the order|String|No|"AssistedChannel"|
 |buId|Business unit ID: Unique for each seller to be provided at the time of onboarding|String|Yes|"2f6823d4-8dfb-5": |
 |customerType|<p>Type of order:<br>1\. CONSUMER: consumer order</p><p>2\. SUPPLIER: supplier order</p>|String|Yes|"CONSUMER"|
-|fulfillmentType|Type of fulfilment:<br>1\. DPW\_FULFILLMENT: DPW Warehouse - Yes, DPW Shipping - Yes<br>2\. SELLER\_FULFILLMENT: DPW Warehouse - No, DPW Shipping - No<br>3\. PICKUP\_AT\_WH: DPW Warehouse - Yes, DPW Shipping - No<br>4\. DROP\_AT\_WH DPW Warehouse - No, DPW Shipping - Yes|String|Yes|"DPW\_FULFILLMENT"|
+|fulfillmentType|Type of fulfilment:<br>1\. DPW\_FULFILLMENT: DPW Warehouse - Yes, DPW Shipping - Yes<br>2\. DROP\_AT\_WH DPW Warehouse - No, DPW Shipping - Yes|String|Yes|"DPW\_FULFILLMENT"|
 |orderPlacedAt|Timestamp indicating when the order was placed (UTC)|String (ISO 8601)|Yes|"2024-03-01T06:11:59.865Z"|
 |currency|Currency code|String|Yes|"EUR"|
 |consigneeOrderId|Consignee order ID|String|No|"C-01"|
