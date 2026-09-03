@@ -331,9 +331,7 @@ In orders, there are two possible shipment types that can be used:
 | shippingType     | Type of shipping                     | String    | Yes       | "DPW_SHIPPING"             |
 |                  | **Options:**                        |           |           |                             |
 |                  | DPW_SHIPPING: warehouseApplicable = Yes, shippingApplicable = Yes |           |           |                             |
-|                  | SELLER_SHIPPING: warehouseApplicable = No, shippingApplicable = No |           |           |                             |
 |                  | WAREHOUSE_PICKUP: warehouseApplicable = Yes, shippingApplicable = No |           |           |                             |
-|                  | DROP_AT_WAREHOUSE: warehouseApplicable = No, shippingApplicable = Yes |           |           |                             |
 | shippingOption   | Shipping option                      | String    | Yes       | "CHEAPEST"                  |
 |                  | **Options:**                        |           |           |                             |
 |                  | CHEAPEST                           |           |           |                             |
